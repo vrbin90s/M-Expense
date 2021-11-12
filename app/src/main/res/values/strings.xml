@@ -3,13 +3,13 @@
     <string name="floatingActionButtonContentDescription">Description</string>
 
     <!--  Label Text Strings in CreateNewTrip Activity  -->
-    <string name="tripNameLabel_text">Trip Name</string>
-    <string name="destinationLabel_text">Destination</string>
-    <string name="date_of_the_trip_text">Date of the trip</string>
+    <string name="tripName_label">Trip Name</string>
+    <string name="destination_label">Destination</string>
+    <string name="calendar_label">Date of the trip</string>
     <string name="requires_risk_assessment_label">Requires risk assessment</string>
-    <string name="description_text">Description</string>
-    <string name="transportation_label_text">Transportation</string>
-    <string name="deposit_amount_label_text">Deposit Amount</string>
+    <string name="description_label">Description</string>
+    <string name="transportation_label">Transportation</string>
+    <string name="deposit_amount_label">Deposit Amount</string>
 
     <!--   Data Picker String in CreateNewTrip Activity     -->
     <string name="select_tripDate_text">Select your trip date</string>
