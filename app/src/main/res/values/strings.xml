@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">M-Expense</string>
+    <string name="floatingActionButtonContentDescription">Description</string>
+
+    <!--  Label Text Strings in CreateNewTrip Activity  -->
+    <string name="tripNameLabel_text">Trip Name</string>
+    <string name="destinationLabel_text">Destination</string>
+    <string name="date_of_the_trip_text">Date of the trip</string>
+    <string name="requires_risk_assessment_label">Requires risk assessment</string>
+    <string name="description_text">Description</string>
+    <string name="transportation_label_text">Transportation</string>
+    <string name="deposit_amount_label_text">Deposit Amount</string>
+
+    <!--   Data Picker String in CreateNewTrip Activity     -->
+    <string name="select_tripDate_text">Select your trip date</string>
+
+    <!--   Hint Text Strings in CreateNewTrip Activity     -->
+    <string name="tripHint_text">e.g. conference, client meeting, etc.</string>
+    <string name="destinationHint_text">e.g. London, France, Moscow , etc.</string>
+    <string name="depositAmountHint_text">e.g. 600, etc</string>
+    <string name="descriptionHint_text">e.g. business trip, family meeting, etc</string>
+
+    <!--   Button Strings in CreateNewTrip Activity     -->
+    <string name="radioBtn_yes_txt">Yes</string>
+    <string name="radioBtn_No_txt">No</string>
+    <string name="nextBtn_text">Next</string>
+
+    <!--   Spinner (Dropdown) Strings Values in CreateNewTrip Activity     -->
+    <string-array name="transportation">
+        <item>Airplane</item>
+        <item>Public transport</item>
+        <item>Rental vehicle</item>
+        <item>Personal vehicle</item>
+    </string-array>
+</resources>
