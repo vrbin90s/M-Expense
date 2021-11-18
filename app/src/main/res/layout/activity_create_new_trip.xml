@@ -6,167 +6,171 @@
     android:layout_height="match_parent"
     tools:context=".CreateNewTrip">
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="365dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+    <Button
+        android:id="@+id/NextButton"
+        android:layout_width="153dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/nextBtn_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041">
-
-        <TextView
-            android:id="@+id/tripName_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tripName_label" />
-
-        <EditText
-            android:id="@+id/tripNameInputField"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:hint="@string/tripHint_text"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-    </LinearLayout>
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="379dp"
+        android:id="@+id/MainActivityLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_with_shadows"
-        android:elevation="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="10dp"
         android:orientation="vertical"
-        android:padding="10dp"
-        android:paddingTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/NextButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.367">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/destination_label"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tripNameInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tripNameInputField"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:hint="Trip name"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/destinationInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="0dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/destinationInputField"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:hint="Destination"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/horizontal_InnerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/destination_label" />
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
-        <EditText
-            android:id="@+id/destinationInputField"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tripDateInputWrapper"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/selectTripDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:hint="Trip Date"
+                    tools:ignore="TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/returnDateWrapper"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/selectReturnDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:focusable="false"
+                    android:hint="Return Date"
+                    android:onClick="showDatePickerDialogForReturnDate"
+                    tools:ignore="TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/descriptionInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:focusableInTouchMode="true"
-            android:inputType="textPersonName"
-            android:hint="@string/destinationHint_text"
-            android:minHeight="48dp" />
+            android:layout_height="60dp"
+            android:layout_marginBottom="0dp">
 
-        <TextView
-            android:id="@+id/tripDate_label"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/descriptionInputField"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:hint="Description (optional)"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="18dp"
-            android:text="@string/calendar_label"/>
+            android:layout_height="60dp">
 
-
-        <TextView
-            android:id="@+id/selectTripDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
-            android:gravity="center_vertical"
-            android:onClick="showDatePickerDialog"
-            android:text="@string/select_tripDate_text"
-            android:focusable="true"
-            app:drawableStartCompat="@android:drawable/ic_menu_my_calendar" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/transportationInputField"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:hint="Transportation (optional)"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/riskAssessment_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
+            android:paddingTop="5dp"
             android:paddingBottom="10dp"
-            android:text="@string/requires_risk_assessment_label" />
+            android:text="@string/requires_risk_assessment_label"
+            tools:ignore="TextContrastCheck" />
 
         <RadioGroup
             android:id="@+id/riskAssessmentRadioGroup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <RadioButton
                 android:id="@+id/radioButton_Yes"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="40dp"
+                android:onClick="onRadioButtonClicked"
                 android:text="@string/radioBtn_yes_txt"
-                android:onClick="onRadioButtonClicked"/>
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
             <RadioButton
                 android:id="@+id/radioButton_No"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="40dp"
+                android:onClick="onRadioButtonClicked"
                 android:text="@string/radioBtn_No_txt"
-                android:onClick="onRadioButtonClicked"/>
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
         </RadioGroup>
-
-        <TextView
-            android:id="@+id/description_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/description_label" />
-
-        <EditText
-            android:id="@+id/descriptionInputField"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            android:hint="@string/descriptionHint_text" />
-
-        <TextView
-            android:id="@+id/transportation_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:text="@string/transportation_label" />
-
-        <Spinner
-            android:id="@+id/transportationSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:entries="@array/transportation"
-            android:paddingTop="10dp" />
-
-        <TextView
-            android:id="@+id/depositAmount_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:text="@string/deposit_amount_label" />
-
-        <EditText
-            android:id="@+id/depositAmountInputField"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:ems="10"
-            android:hint="@string/depositAmountHint_text"
-            android:inputType="number" />
-
     </LinearLayout>
 
-    <Button
-        android:id="@+id/NextButton"
-        android:layout_width="328dp"
-        android:layout_height="61dp"
-        android:text="@string/nextBtn_text"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="185dp"
+        app:layout_constraintBottom_toTopOf="@+id/MainActivityLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sample_img"
+        tools:ignore="ImageContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

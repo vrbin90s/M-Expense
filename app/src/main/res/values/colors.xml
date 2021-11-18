@@ -8,7 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple_label">#9C27B0</color>
-    <color name="bgColor">#F5F5F5</color>
+    <color name="bgColor">#DCDCDC</color>
     <color name="hintTextColor">#0097A7</color>
     <color name="errorColor">#FF0000</color>
+    <color name="editTextBorder">#727272</color>
+
 </resources>

@@ -27,11 +27,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
 
 public class CreateNewTrip extends AppCompatActivity {
 
     public static boolean dateSelected = false;
+
+    private boolean tripDateOrReturnDate = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,39 @@ public class CreateNewTrip extends AppCompatActivity {
 
         TextView riskAssessment = (TextView) findViewById(R.id.riskAssessment_label);
         String riskAssessmentString = riskAssessment.getText().toString();
+
+        EditText tripDate = findViewById(R.id.selectTripDate);
+        EditText returnDate = findViewById(R.id.selectReturnDate);
+
+        DialogFragment datePicker = new DatePickerFragment();
+
+        tripDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePicker.show(getSupportFragmentManager(),"datePicker");
+                tripDateOrReturnDate = true;
+            }
+        });
+
+        returnDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePicker.show(getSupportFragmentManager(),"datePicker");
+                tripDateOrReturnDate = false;
+            }
+        });
+
+        // Setting a default date in date input field
+//        EditText defaultInputDate = findViewById(R.id.selectTripDate);
+//
+//        Calendar cal = Calendar.getInstance();
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//        String strDate = sdf.format(cal.getTime());
+//
+//        defaultInputDate.setText(strDate);
+        // Default date end.
+
+
 
         if (riskAssessmentString.length() == 21) {
             dateSelected = false;
@@ -74,30 +112,40 @@ public class CreateNewTrip extends AppCompatActivity {
                 if (tripName.isEmpty()){
                     failFlag = true;
                     tripInput.setError("Trip name is required");
+                } else {
+                    failFlag = false;
                 }
                 if (destinationInput.isEmpty()){
                     failFlag = true;
                     destinationInputField.setError("Destination details required");
+                } else {
+                    failFlag = false;
                 }
 
                 if (dateSelected == false) {
                     failFlag = true;
                     calendar.setError("Date selection required");
+                } else {
+                    failFlag = false;
                 }
 
                 if (radioGroup.getCheckedRadioButtonId() == -1){
                     failFlag = true;
                     riskAssessment.setError("Please select radio button");
 
+                } else {
+                    failFlag = false;
                 }
 
                 if (failFlag == false){
-                    getInputs();
+
                 }
+                getInputs();
 
             }
         });
     }
+
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -121,64 +169,71 @@ public class CreateNewTrip extends AppCompatActivity {
 
 
     public static class DatePickerFragment extends DialogFragment implements
-            DatePickerDialog.OnDateSetListener {    @NonNull
-    @Override
+            DatePickerDialog.OnDateSetListener { @NonNull
+        @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-
-
                 LocalDate d = LocalDate.now();
                 int year = d.getYear();
                 int month = d.getMonthValue();
                 int day = d.getDayOfMonth();
 
-
-
                 return new DatePickerDialog(getActivity(), this, year, --month, day);
-
             }
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-
-                LocalDate td = LocalDate.of(year, ++month, day);
-                ((CreateNewTrip)getActivity()).updateTD(td);
-
-
+            public void onDateSet(DatePicker datePicker, int year, int month, int day)
+            {
+                LocalDate date = LocalDate.of(year, ++month, day);
+                ((CreateNewTrip)getActivity()).updateTD(date);
             }
-
-
     }
 
-    public void showDatePickerDialog(View view) {
+
+    public void showDatePickerDialogForTripDate(View view) {
+
         DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "dataPicker");
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public void showDatePickerDialogForReturnDate(View view) {
+
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     public void updateTD(LocalDate td) {
-        TextView tripDate = (TextView) findViewById(R.id.selectTripDate);
-        tripDate.setText(td.toString());
-        tripDate.setError(null);
+
+        if (tripDateOrReturnDate == true) {
+            EditText tripDate = findViewById(R.id.selectTripDate);
+            tripDate.setText(td.toString());
+            tripDate.setError(null);
+        }
+        if (tripDateOrReturnDate == false){
+            EditText returnDate = findViewById(R.id.selectReturnDate);
+            returnDate.setText(td.toString());
+            returnDate.setError(null);
+        }
         dateSelected = true;
 
     }
 
     private void getInputs(){
-        EditText tripInput = (EditText) findViewById(R.id.tripNameInputField);
-        EditText destinationInput = (EditText) findViewById(R.id.destinationInputField);
-        TextView tripDateInput = (TextView) findViewById(R.id.selectTripDate);
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.riskAssessmentRadioGroup);
-        RadioButton radioButtonInput = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
-        EditText descriptionInput = (EditText) findViewById(R.id.destinationInputField);
-        Spinner tranDropdown = (Spinner) findViewById(R.id.transportationSpinner);
-        EditText depositAmount = (EditText) findViewById(R.id.depositAmountInputField);
+        EditText nameTxt = findViewById(R.id.tripNameInputField);
+        EditText destinationTxt = findViewById(R.id.destinationInputField);
+        EditText tripDateTxt = findViewById(R.id.selectTripDate);
+        EditText returnDateTxt = findViewById(R.id.selectReturnDate);
+        EditText descriptionTxt = findViewById(R.id.descriptionInputField);
+        EditText transportationTxt = findViewById(R.id.transportationInputField);
+        RadioGroup radioGroup = findViewById(R.id.riskAssessmentRadioGroup);
+        RadioButton radioButtonTxt = findViewById(radioGroup.getCheckedRadioButtonId());
 
-        String strTripName = tripInput.getText().toString(),
-                strDestination = destinationInput.getText().toString(),
-                strTripDate = tripDateInput.getText().toString(),
-                strRiskAssessment = radioButtonInput.getText().toString(),
-                strDescription = descriptionInput.getText().toString(),
-                strTransportation = tranDropdown.getSelectedItem().toString(),
-                strDeposit = depositAmount.getText().toString();
-        displayAlert(strTripName, strDestination, strTripDate, strRiskAssessment, strDescription, strTransportation, strDeposit);
+        String strTripName = nameTxt.getText().toString(),
+                strDestination = destinationTxt.getText().toString(),
+                strTripDate = tripDateTxt.getText().toString(),
+                strReturnDate = returnDateTxt.getText().toString(),
+                strDescription = descriptionTxt.getText().toString(),
+                strTransportation = transportationTxt.getText().toString(),
+                strRiskAssessment = radioButtonTxt.getText().toString();
+        displayAlert(strTripName, strDestination, strTripDate, strReturnDate, strDescription, strTransportation,strRiskAssessment);
 
 
     }
@@ -187,19 +242,20 @@ public class CreateNewTrip extends AppCompatActivity {
             String strTripName,
             String strDestination,
             String strTripDate,
-            String strRiskAssessment,
+            String strReturnDate,
             String strDescription,
             String strTransportation,
-            String strDeposit) {
+            String strRiskAssessment
+            ) {
         new AlertDialog.Builder(this).setTitle("Details entered").setMessage(
                 "Details entered:\n"
-                +strTripName +"\n"
-                +strDestination +"\n"
-                +strTripDate + "\n"
-                +strRiskAssessment + "\n"
-                +strDescription + "\n"
-                +strTransportation +"\n"
-                +strDeposit
+                        +strTripName        +   "\n"
+                        +strDestination     +   "\n"
+                        +strTripDate        +   "\n"
+                        +strReturnDate      +   "\n"
+                        +strDescription     +   "\n"
+                        +strTransportation  +   "\n"
+                        +strRiskAssessment
         )
                 .setNeutralButton("Back",
                 new DialogInterface.OnClickListener() {
@@ -211,8 +267,41 @@ public class CreateNewTrip extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
             // Here will be the logic to save data into the database
+                        saveDetails();
                     }
                 }).show();
+    }
+
+    private void saveDetails() {
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+
+        EditText nameTxt = findViewById(R.id.tripNameInputField);
+        EditText destinationTxt = findViewById(R.id.destinationInputField);
+        EditText tripDateTxt = findViewById(R.id.selectTripDate);
+        EditText returnDateTxt = findViewById(R.id.selectReturnDate);
+        EditText descriptionTxt = findViewById(R.id.descriptionInputField);
+        EditText transportationTxt = findViewById(R.id.transportationInputField);
+        RadioGroup radioGroup = findViewById(R.id.riskAssessmentRadioGroup);
+        RadioButton radioButtonTxt = findViewById(radioGroup.getCheckedRadioButtonId());
+
+
+        String name = nameTxt.getText().toString();
+        String destination = destinationTxt.getText().toString();
+        String tripDate = tripDateTxt.getText().toString();
+        String returnDate = returnDateTxt.getText().toString();
+        String description = descriptionTxt.getText().toString();
+        String transportation = transportationTxt.getText().toString();
+        String riskAssessment = radioButtonTxt.getText().toString();
+
+
+
+        long tripID = dbHelper.insertDetails(name, destination, tripDate, returnDate,description,transportation,riskAssessment);
+
+        Toast.makeText(this, "New trip has been created with id: " + tripID,
+                Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MExpense">
         <activity
+            android:name=".DetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddTripExpenses"
             android:exported="false" />
         <activity
