@@ -6,11 +6,17 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -20,13 +26,15 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    //a list to store all the products
+    //Reference to the list to store all the products
     List<TripDetails> tripDetailsList = new ArrayList<>() ;
-    ArrayList<String> items;
 
-    //the recycleView
+    //Reference to the recycleView
     RecyclerView recyclerView;
     TripAdapter adapter;
+
+    //Reference to the setting Button
+    MenuItem settingButton;
 
 
 
@@ -35,7 +43,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         DatabaseHelper db = new DatabaseHelper(this);
+
+        // Getting setting button
+        settingButton = (MenuItem) findViewById(R.id.settings_button);
 
 
         // getting recycleView from xml file
@@ -45,7 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         //initializing the trip list
-        tripDetailsList = db.getCardDetails();
+        if (SettingsActivity.recordsDeleted == false){
+            tripDetailsList = db.getCardDetails();
+        } else {
+            tripDetailsList = new ArrayList<>();
+        }
+
 
 
 
@@ -70,12 +87,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_card, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+
+
     }
+
+    // Open setting activity once user
+    // interacts with setting button.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.settings_button:
+                Intent startSettingActivity = new Intent(this,SettingsActivity.class);
+                startActivity(startSettingActivity);
+                return true;
+
+        }
+        return false;
+    }
+
+    public class SearchAdapter extends ListActivity {
+
+        List<TripDetails> tripDetailsList = new ArrayList<>() ;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            DatabaseHelper db = new DatabaseHelper(this);
+
+            tripDetailsList = db.getCardDetails();
+
+            setListAdapter(new ArrayAdapter<TripDetails>(this, R.layout.list_items, tripDetailsList));
+            ListView lv = getListView();
+            lv.setTextFilterEnabled(true);
+        }
+    }
+
+
 
 }

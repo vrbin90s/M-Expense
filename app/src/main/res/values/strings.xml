@@ -25,6 +25,7 @@
     <string name="radioBtn_No_txt">No</string>
     <string name="nextBtn_text">Next</string>
     <string name="card_title">cardTitle</string>
+    <string name="update_button">Update</string>
 
     <!--   Spinner (Dropdown) Strings Values in CreateNewTrip Activity     -->
     <string-array name="transportation">

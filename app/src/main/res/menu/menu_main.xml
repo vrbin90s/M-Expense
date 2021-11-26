@@ -13,8 +13,7 @@
         android:title=""
         app:showAsAction="ifRoom" />
     <item
-        android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title=""
-        app:showAsAction="never" />
+        android:id="@+id/settings_button"
+        android:title="Settings" />
 
 </menu>

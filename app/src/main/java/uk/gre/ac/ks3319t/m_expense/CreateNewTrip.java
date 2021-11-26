@@ -1,9 +1,7 @@
 package uk.gre.ac.ks3319t.m_expense;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringDef;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -12,30 +10,24 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
 
 public class CreateNewTrip extends AppCompatActivity {
 
     public static boolean dateSelected = false;
+    public static boolean newTripActivity = true;
 
-    private boolean tripDateOrReturnDate = true;
+    private boolean tripDateOrReturnDate;
 
 
     @Override
@@ -43,7 +35,9 @@ public class CreateNewTrip extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_trip);
 
-        TextView riskAssessment = (TextView) findViewById(R.id.riskAssessment_label);
+        newTripActivity = true;
+
+        TextView riskAssessment = (TextView) findViewById(R.id.update_riskAssessment_label);
         String riskAssessmentString = riskAssessment.getText().toString();
 
         EditText tripDate = findViewById(R.id.selectTripDate);
@@ -83,27 +77,27 @@ public class CreateNewTrip extends AppCompatActivity {
             dateSelected = false;
         }
 
-        Button nextButton = (Button)findViewById(R.id.NextButton);
+        Button nextButton = (Button)findViewById(R.id.updateButton);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
 
-                EditText tripInput = (EditText) findViewById(R.id.tripNameInputField);
+                EditText tripInput = (EditText) findViewById(R.id.update_tripNameInputField);
                 String tripName = tripInput.getText().toString();
 
-                EditText destinationInputField = (EditText) findViewById(R.id.destinationInputField);
+                EditText destinationInputField = (EditText) findViewById(R.id.update_destinationInputField);
                 String destinationInput = destinationInputField.getText().toString();
 
                 TextView calendar = (TextView) findViewById(R.id.selectTripDate);
 
-                TextView riskAssessment = (TextView) findViewById(R.id.riskAssessment_label);
+                TextView riskAssessment = (TextView) findViewById(R.id.update_riskAssessment_label);
                 String riskAssessmentString = riskAssessment.getText().toString();
                 int checkTextLength = riskAssessmentString.length();
 
 
                 RadioGroup radioGroup = (RadioGroup) findViewById(R.id.riskAssessmentRadioGroup);
-                RadioButton radioButtonYes = findViewById(R.id.radioButton_Yes);
+                RadioButton radioButtonYes = findViewById(R.id.update_radioButton_Yes);
 
 
                 boolean failFlag = false;
@@ -140,7 +134,9 @@ public class CreateNewTrip extends AppCompatActivity {
                 if (failFlag == false){
 
                 }
-                getInputs();
+                if(failFlag == false){
+                    getInputs();
+                }
 
             }
         });
@@ -151,15 +147,15 @@ public class CreateNewTrip extends AppCompatActivity {
         boolean checked = ((RadioButton) view).isChecked();
 
         // Reference to the risk assessment label to remove error message once radio btn is checked.
-        TextView riskAssessment = (TextView) findViewById(R.id.riskAssessment_label);
+        TextView riskAssessment = (TextView) findViewById(R.id.update_riskAssessment_label);
 
         // Check which radio button was clicked
         switch(view.getId()) {
-            case R.id.radioButton_Yes:
+            case R.id.update_radioButton_Yes:
                 if (checked)
                     riskAssessment.setError(null);
                     break;
-            case R.id.radioButton_No:
+            case R.id.update_radioButton_No:
                 if (checked) {
                     riskAssessment.setError(null);
                 }
@@ -183,22 +179,18 @@ public class CreateNewTrip extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day)
             {
                 LocalDate date = LocalDate.of(year, ++month, day);
-                ((CreateNewTrip)getActivity()).updateTD(date);
+
+                if(newTripActivity == true){
+                    ((CreateNewTrip) getActivity()).updateTD(date);
+                } else {
+                    ((UpdateTripDetails)getActivity()).updateTD(date);
+                }
+
+
             }
     }
 
 
-    public void showDatePickerDialogForTripDate(View view) {
-
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
-
-    public void showDatePickerDialogForReturnDate(View view) {
-
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
 
     public void updateTD(LocalDate td) {
 
@@ -217,12 +209,12 @@ public class CreateNewTrip extends AppCompatActivity {
     }
 
     private void getInputs(){
-        EditText nameTxt = findViewById(R.id.tripNameInputField);
-        EditText destinationTxt = findViewById(R.id.destinationInputField);
+        EditText nameTxt = findViewById(R.id.update_tripNameInputField);
+        EditText destinationTxt = findViewById(R.id.update_destinationInputField);
         EditText tripDateTxt = findViewById(R.id.selectTripDate);
         EditText returnDateTxt = findViewById(R.id.selectReturnDate);
-        EditText descriptionTxt = findViewById(R.id.descriptionInputField);
-        EditText transportationTxt = findViewById(R.id.transportationInputField);
+        EditText descriptionTxt = findViewById(R.id.update_descriptionInputField);
+        EditText transportationTxt = findViewById(R.id.update_transportationInputField);
         RadioGroup radioGroup = findViewById(R.id.riskAssessmentRadioGroup);
         RadioButton radioButtonTxt = findViewById(radioGroup.getCheckedRadioButtonId());
 
@@ -275,12 +267,12 @@ public class CreateNewTrip extends AppCompatActivity {
     private void saveDetails() {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
 
-        EditText nameTxt = findViewById(R.id.tripNameInputField);
-        EditText destinationTxt = findViewById(R.id.destinationInputField);
+        EditText nameTxt = findViewById(R.id.update_tripNameInputField);
+        EditText destinationTxt = findViewById(R.id.update_destinationInputField);
         EditText tripDateTxt = findViewById(R.id.selectTripDate);
         EditText returnDateTxt = findViewById(R.id.selectReturnDate);
-        EditText descriptionTxt = findViewById(R.id.descriptionInputField);
-        EditText transportationTxt = findViewById(R.id.transportationInputField);
+        EditText descriptionTxt = findViewById(R.id.update_descriptionInputField);
+        EditText transportationTxt = findViewById(R.id.update_transportationInputField);
         RadioGroup radioGroup = findViewById(R.id.riskAssessmentRadioGroup);
         RadioButton radioButtonTxt = findViewById(radioGroup.getCheckedRadioButtonId());
 

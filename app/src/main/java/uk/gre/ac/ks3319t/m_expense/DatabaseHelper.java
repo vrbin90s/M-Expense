@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +15,8 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "trip_details";
+
+    public static final String TABLE_NAME = "trip_details";
 
     public static final String TRIP_ID_COLUMN = "trip_id";
     public static final String TRIP_NAME_COLUMN = "name";
@@ -25,7 +28,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String REQUIRES_RISK_ASSESSMENT_COLUMN = "risk_assessment";
 
     private SQLiteDatabase database;
-    private TripDetails tripDetails;
+    private ArrayList<TripDetails> tripDetailsList = new ArrayList<TripDetails>();
+    SettingsActivity settingsActivity = new SettingsActivity();
+    TripAdapter adapter;
+
 
 
     private static final String DATABASE_CREATE = String.format(
@@ -55,7 +61,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(DATABASE_CREATE);
+
     }
 
     @Override
@@ -81,11 +89,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return database.insertOrThrow(DATABASE_NAME, null, rowValues);
     }
 
-    public void deleteTrip(int tripID){
-
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL(" DELETE FROM " + DATABASE_NAME + " WHERE " + TRIP_ID_COLUMN + "='" + tripID + "'");
-    }
 
     public List<TripDetails> getCardDetails() {
 
@@ -99,7 +102,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int id = results.getInt(0);
             String title = results.getString(1);
             String description = results.getString(3);
-            String date = results.getString(5);
+            String date = results.getString(4);
 
             TripDetails data = new TripDetails(id,title,description,date);
             tripDetails.add(data);
@@ -131,6 +134,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return resultText;
+
+    }
+
+
+    public void DeleteAllRecords(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME,null,null);
+        db.close();
 
     }
 

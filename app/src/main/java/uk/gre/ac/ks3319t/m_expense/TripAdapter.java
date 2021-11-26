@@ -1,15 +1,19 @@
 package uk.gre.ac.ks3319t.m_expense;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,15 +21,17 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
-    private Context context;
-    private List<TripDetails> tripDetailsList;
-    private DatabaseHelper db;
+    public Context context;
+    public List<TripDetails> tripDetailsList;
+
+    public DatabaseHelper databaseHelper;
+    SQLiteDatabase db;
+
+
 
 
 
@@ -45,7 +51,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         // to set data to textView and image of each card layout
 
 
@@ -58,6 +64,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
 
+                final int tripID = tripDetails.getTripID();
+                databaseHelper = new DatabaseHelper(context);
+                db = databaseHelper.getWritableDatabase();
                 PopupMenu popupMenu = new PopupMenu(context, holder.optionButton);
                 popupMenu.inflate(R.menu.menu_card);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -66,21 +75,56 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
                         switch (menuItem.getItemId()){
                             case R.id.update_details:
-                                Toast.makeText(context.getApplicationContext(), "This will update trip details",
-                                        Toast.LENGTH_SHORT).show();
+
+//                                Toast.makeText(context.getApplicationContext(), "This will update trip details with ID: " + tripDetails.getTripID(),
+//                                        Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(context, UpdateTripDetails.class);
+                                intent.putExtra("tripID", tripID);
+                                context.startActivity(intent);
 
                                 return true;
                             case R.id.delete_details:
-                                Toast.makeText(context.getApplicationContext(), "This will delete this trip with ID " + tripDetails.getCardID()
-                                        , Toast.LENGTH_SHORT).show();
-                             /*   Intent intent = new Intent(context, MainActivity.class);
-                                context.startActivity(intent);*/
+
+                                // On delete button selected call alert dialogue
+                                // to confirm delete action
+                                // to prevent error deleting the record
+
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                                alertDialog.setTitle("Delete record");
+                                alertDialog.setMessage("Are you sure you want to delete this record?");
+
+                                // If user selects CANCEL button
+                                // than do nothing
+                                alertDialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.cancel();
+                                    }
+                                });
+                                // If user selects YES button
+                                // delete the record from the database
+                                alertDialog.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        db.delete("trip_details","trip_id" + " = " + tripID, null);
+                                        notifyItemRangeChanged(position,tripDetailsList.size());
+                                        tripDetailsList.remove(position);
+                                        notifyItemRemoved(position);
+                                        db.close();
+
+                                        Toast.makeText(context.getApplicationContext(),  tripDetails.getTitle() + " record was deleted"
+                                                , Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                                AlertDialog dialog = alertDialog.create();
+                                dialog.show();
+
 
                                 return true;
 
                             default:
                                 return onMenuItemClick(menuItem);
-
 
                         }
                     }
