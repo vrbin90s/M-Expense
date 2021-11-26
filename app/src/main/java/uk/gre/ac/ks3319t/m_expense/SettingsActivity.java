@@ -75,18 +75,15 @@ public class SettingsActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
-                                //recordsDeleted = true;
+                                recordsDeleted = true;
                                 //databaseHelper.DeleteAllRecords();
 
-                                //Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
-                                //startActivity(intent);
-                                dialogInterface.cancel();
+                                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                //dialogInterface.cancel();
 
                             }
                         });
-                        if(recordsDeleted == true){
-                            databaseHelper.DeleteAllRecords();
-                        }
                         alertDialog.show();
                     }
                 }

@@ -169,8 +169,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
             tripCard = itemView.findViewById(R.id.tripCard);
             optionButton = itemView.findViewById(R.id.options_menu);
 
-
-
         }
     }
 

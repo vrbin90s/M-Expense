@@ -31,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private ArrayList<TripDetails> tripDetailsList = new ArrayList<TripDetails>();
     SettingsActivity settingsActivity = new SettingsActivity();
     TripAdapter adapter;
+    MainActivity mainActivity;
 
 
 
@@ -134,14 +135,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return resultText;
-
-    }
-
-
-    public void DeleteAllRecords(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME,null,null);
-        db.close();
 
     }
 

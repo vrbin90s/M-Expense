@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -59,8 +60,15 @@ public class MainActivity extends AppCompatActivity {
         //initializing the trip list
         if (SettingsActivity.recordsDeleted == false){
             tripDetailsList = db.getCardDetails();
-        } else {
-            tripDetailsList = new ArrayList<>();
+
+        } else if (SettingsActivity.recordsDeleted) {
+
+            tripDetailsList.clear();
+            DatabaseHelper newDBHelper = new DatabaseHelper(this);
+            newDBHelper.getWritableDatabase();
+            SQLiteDatabase sqlDB = newDBHelper.getWritableDatabase();
+            sqlDB.delete("trip_details",null,null);
+            sqlDB.close();
         }
 
 
