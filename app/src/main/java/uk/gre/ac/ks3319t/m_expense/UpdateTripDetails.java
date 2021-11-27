@@ -136,7 +136,7 @@ public class UpdateTripDetails extends AppCompatActivity {
                 values.put(DatabaseHelper.TRIP_DESTINATION_COLUMN, destination);
                 values.put(DatabaseHelper.TRIP_DATE_COLUMN, tripDate);
                 values.put(DatabaseHelper.RETURN_DATE_COLUMN, returnDate);
-                values.put(DatabaseHelper.TRIP_DESTINATION_COLUMN, description);
+                values.put(DatabaseHelper.TRIP_DESCRIPTION_COLUMN, description);
                 values.put(DatabaseHelper.TRIP_TRANSPORTATION_COLUMN, transportation);
                 values.put(DatabaseHelper.REQUIRES_RISK_ASSESSMENT_COLUMN, riskAssessment);
 

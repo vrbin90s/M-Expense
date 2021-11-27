@@ -1,0 +1,15 @@
+[33m5ed5358[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{0}: checkout: moving from master to master
+[33m5ed5358[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{1}: branch: Reset to origin/master
+[33m5ed5358[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{2}: checkout: moving from master to master
+[33m5ed5358[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{3}: branch: Reset to origin/master
+[33m5ed5358[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{4}: checkout: moving from master to master
+[33m5ed5358[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{5}: branch: Reset to origin/master
+[33m5ed5358[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{6}: checkout: moving from 992ba29ae0266b1fe97c4afbf936eb07012e98cc to master
+[33m992ba29[m HEAD@{7}: commit: Updated on the task B. Delete all records through Settings menu is now working.
+[33mb879441[m HEAD@{8}: commit: Updated on the task B. Delete all records through Settings menu is now working.
+[33m34c96c1[m HEAD@{9}: commit: Updated on the task B. All functionality is working apart deleting all record. This should be implemented soon, hopefully wont take long. After this is completed I will include a new activity where users by clicking on the trip card can have view their trip details in more detail and add their expenses. This will be activity where we will merge part C. Part D should also be implemented during this weekend.
+[33m64cf3f9[m HEAD@{10}: commit: Task b) - All details entered by the user is stored in the SQLite database and than displayed in the main activity using CardView and RecycleView. Note: Still work in progress on: 1. Users can delete record, users can update record, user can delete all records.
+[33m5ed5358[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{11}: checkout: moving from master to 5ed53584b6126a69280568e0598c5920200f3db3
+[33m5ed5358[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{12}: commit: NewExpensesActivity for Tomas to work on task C.
+[33mdd3a30b[m HEAD@{13}: commit: Complete A part of the mobile app requirements. User able to input:
+[33mb33809c[m HEAD@{14}: commit (initial): Initial commit
