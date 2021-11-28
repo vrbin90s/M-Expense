@@ -1,7 +1,6 @@
 package uk.gre.ac.ks3319t.m_expense;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,7 +10,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -21,13 +21,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
+public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> implements Filterable{
 
     public Context context;
     public List<TripDetails> tripDetailsList;
-
+    private List<TripDetails> tripDetailsListFull;
     public DatabaseHelper databaseHelper;
     SQLiteDatabase db;
 
@@ -39,7 +40,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     public TripAdapter(Context context, List<TripDetails> tripDetailsList) {
         this.context = context;
         this.tripDetailsList = tripDetailsList;
+        tripDetailsListFull = new ArrayList<>(tripDetailsList);
     }
+
 
     @NonNull
     @Override
@@ -171,6 +174,42 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return filteredList;
+    }
+
+    private Filter filteredList = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<TripDetails> filteredList = new ArrayList<>();
+            if (charSequence == null || charSequence.length() == 0) {
+                filteredList.addAll(tripDetailsListFull);
+            } else {
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+
+                for (TripDetails tripItem : tripDetailsListFull) {
+                    if (tripItem.getTitle().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(tripItem);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            tripDetailsList.clear();
+            tripDetailsList.addAll((List) filterResults.values);
+            notifyDataSetChanged();
+
+        }
+    };
+
 
 
 

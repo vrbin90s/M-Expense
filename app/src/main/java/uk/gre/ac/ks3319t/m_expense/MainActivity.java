@@ -10,7 +10,9 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +20,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             newDBHelper.getWritableDatabase();
             SQLiteDatabase sqlDB = newDBHelper.getWritableDatabase();
             sqlDB.delete("trip_details",null,null);
+            //SettingsActivity.recordsDeleted = true;
             sqlDB.close();
         }
 
@@ -101,11 +107,37 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        TripAdapter newTripAdapter= new TripAdapter(this, tripDetailsList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(newTripAdapter);
+        MenuInflater inflater = getMenuInflater();
+
+        inflater.inflate(R.menu.menu_main, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.search_InputField);
+
+        SearchView searchView = (SearchView) menuItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newTripAdapter != null) {
+                    newTripAdapter.getFilter().filter(newText);
+                }
+
+                return false;
+            }
+        });
         return true;
 
 
     }
+
 
     // Open setting activity once user
     // interacts with setting button.
@@ -120,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
 
     public class SearchAdapter extends ListActivity {
 
