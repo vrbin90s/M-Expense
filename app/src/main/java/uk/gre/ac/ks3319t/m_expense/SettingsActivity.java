@@ -28,9 +28,6 @@ public class SettingsActivity extends AppCompatActivity {
     // Boolean to check whether button was clicked.
     private boolean clicked;
 
-    TripAdapter adapter;
-    private DatabaseHelper databaseHelper;
-    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +55,10 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 clicked = true;
 
+                // Check if proceed button have been clicked
                 if (clicked){
+                    // Check if delete items check box have been checked
+                    // if yes - show the confirmation alert window.
                     if (deleteCheckBox.isChecked()){
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this);
                         alertDialog.setTitle("Delete all trip record");

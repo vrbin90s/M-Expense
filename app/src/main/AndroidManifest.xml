@@ -10,8 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MExpense">
         <activity
+            android:name=".DisplayTripDetails"
+            android:exported="false"
+            android:label=""/>
+        <activity
             android:name=".SettingsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label=""/>
         <activity
             android:name=".UpdateTripDetails"
             android:exported="false" />

@@ -26,6 +26,25 @@
     <string name="nextBtn_text">Next</string>
     <string name="card_title">cardTitle</string>
     <string name="update_button">Update</string>
+    <!-- Display Trip Details Strings -->
+    <string name="DTD_toolbarText">Trip Details</string>
+    <string name="DTD_TripImageDescription">image of the trip</string>
+    <string name="DTD_tripNameLabel">Trip Name</string>
+    <string name="DTD_tripNameText">Trip Name Text Here</string>
+    <string name="DTD_destinationLabel">Destination</string>
+    <string name="DTD_destinationText">Destination Text Goes here</string>
+    <string name="DTD_tripDateLabel">Trip Date</string>
+    <string name="DTD_tripDateText">Trip Date Text</string>
+    <string name="DTD_returnDateLabel">Return Date</string>
+    <string name="DTD_returnDateText">Return Date Text</string>
+    <string name="DTD_descriptionLabel">Description</string>
+    <string name="DTD_descriptionText">Description Text</string>
+    <string name="DTD_transportationLabel">Transportation</string>
+    <string name="DTD_transportationText">Transportation Text</string>
+    <string name="DTD_RQRiskAssessmentLabel">Required Risk Assessment</string>
+    <string name="DTD_RQRiskAssessmentText">Risk assessment text</string>
+    <string name="DTD_expensesButtonText">Expenses</string>
+    <string name="DTD_detailsButtonText">Details</string>
 
     <!--   Spinner (Dropdown) Strings Values in CreateNewTrip Activity     -->
     <string-array name="transportation">

@@ -26,21 +26,26 @@ import java.util.List;
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> implements Filterable{
 
+    // Variable for context.
     public Context context;
+    // Variable that store trip details list
     public List<TripDetails> tripDetailsList;
-    private List<TripDetails> tripDetailsListFull;
+    // Variable that stores copy of the trip details list items
+    private List<TripDetails> copyOfTheMainTripDetailList;
+    // Variable that stores database helper class.
     public DatabaseHelper databaseHelper;
+    // Referencing database.
     SQLiteDatabase db;
 
 
 
 
 
-    // Constructor
+    // Constructor for our variables
     public TripAdapter(Context context, List<TripDetails> tripDetailsList) {
         this.context = context;
         this.tripDetailsList = tripDetailsList;
-        tripDetailsListFull = new ArrayList<>(tripDetailsList);
+        copyOfTheMainTripDetailList = new ArrayList<>(tripDetailsList);
     }
 
 
@@ -55,13 +60,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> im
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        // to set data to textView and image of each card layout
+        // Bind values to set and show data
+        // in textView of each card layout.
 
 
         TripDetails tripDetails = tripDetailsList.get(position);
         holder.cardTitle.setText(tripDetails.getTitle());
         holder.cardDescription.setText(tripDetails.getDescription());
         holder.cardDate.setText(tripDetails.getDate());
+
 
         holder.optionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,8 +149,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> im
         holder.tripCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                final int tripID = tripDetails.getTripID();
+
+
                 Context context = view.getContext();
                 Toast.makeText(context, tripDetails.getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, DisplayTripDetails.class);
+                intent.putExtra("tripID", tripID);
+                context.startActivity(intent);
             }
         });
 
@@ -152,8 +166,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> im
 
     @Override
     public int getItemCount() {
-        // this method is used to show number of card items
-        // in recycle view.
+        // Returning the size of our trip details list.
         return tripDetailsList.size();
     }
 
@@ -175,32 +188,45 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> im
         }
     }
 
+    // Method that returns filtered search results to our recycle view.
     @Override
     public Filter getFilter() {
         return filteredList;
     }
 
+    // Method that filters our recycler view items.
     private Filter filteredList = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             List<TripDetails> filteredList = new ArrayList<>();
+            // If search view is empty than add all items to our recycler view.
             if (charSequence == null || charSequence.length() == 0) {
-                filteredList.addAll(tripDetailsListFull);
+                filteredList.addAll(copyOfTheMainTripDetailList);
+                // Else if user type something in search view input field
+                // add the item that contains those character
+                // into our recycle view.
             } else {
                 String filterPattern = charSequence.toString().toLowerCase().trim();
 
-                for (TripDetails tripItem : tripDetailsListFull) {
+                // Gets card title name (trip name) containing input characters
+                // and adds to the filtered list.
+                for (TripDetails tripItem : copyOfTheMainTripDetailList) {
                     if (tripItem.getTitle().toLowerCase().contains(filterPattern)) {
                         filteredList.add(tripItem);
                     }
                 }
             }
+
+            // Add filtered result values to the list.
             FilterResults results = new FilterResults();
             results.values = filteredList;
 
+            // Return filtered results.
             return results;
         }
 
+        // Method that notify our trip adaptor
+        // about recycler view data changes.
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             tripDetailsList.clear();

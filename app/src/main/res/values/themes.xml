@@ -14,8 +14,8 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/bgColor</item>
         <item name="textInputStyle">@style/TextInputLayoutStyle</item>
-        <item name="android:actionMenuTextColor">@color/white</item>
-        <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="actionBarTheme">@style/MyActionBar</item>
+
     </style>
 
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -28,14 +28,13 @@
         <item name="labelStyle">@null</item>
     </style>
 
+    <!--  Action Bar Menu Styles  -->
+
     <!-- ActionBar styles -->
     <style name="MyActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
-
-
-        <!-- Support library compatibility -->
-
-        <item name="android:alwaysDrawnWithCache">true</item>
-        <item name="android:displayOptions">showTitle|showHome|homeAsUp</item>
-        <item name="android:icon">@drawable/ic_baseline_search_24</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
 </resources>
