@@ -29,9 +29,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase database;
     private ArrayList<TripDetails> tripDetailsList = new ArrayList<TripDetails>();
-    SettingsActivity settingsActivity = new SettingsActivity();
-    TripAdapter adapter;
-    MainActivity mainActivity;
 
 
 
