@@ -7,100 +7,100 @@
     tools:context=".AddTripExpenses">
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="369dp"
-        android:layout_height="303dp"
-        android:background="@drawable/background_with_shadows"
-        android:elevation="1dp"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:paddingTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.076">
-
-        <TextView
-            android:id="@+id/expenseAmount_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Amount of the expense" />
-
-        <EditText
-            android:id="@+id/expenseAmountInputField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:focusableInTouchMode="true"
-            android:hint="Amount in £"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <TextView
-            android:id="@+id/tripDate_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="18dp"
-            android:text="@string/calendar_label" />
-
-
-        <TextView
-            android:id="@+id/selectTripDate"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:drawablePadding="5dp"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:minHeight="48dp"
-            android:onClick="showDatePickerDialog"
-            android:text="@string/select_tripDate_text"
-            app:drawableStartCompat="@android:drawable/ic_menu_my_calendar" />
-
-        <TextView
-            android:id="@+id/expenseName_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="expense name" />
-
-        <EditText
-            android:id="@+id/expenseNameInputField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="e.g. Travel, Food, Other"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <TextView
-            android:id="@+id/description_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/description_label" />
-
-        <EditText
-            android:id="@+id/descriptionInputField"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="@string/descriptionHint_text"
-            android:inputType="textMultiLine" />
-
-    </LinearLayout>
-
     <Button
-        android:id="@+id/NextExButton"
-        android:layout_width="328dp"
-        android:layout_height="61dp"
+        android:id="@+id/NextExpensesButton"
+        android:layout_width="153dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/nextBtn_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/MainActivityLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/NextExpensesButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.979" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ExpenseLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TypeOfExpense"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:hint="@string/type_of_expense"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ExpenseAmountLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="0dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/AmountOfExpense"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:hint="@string/amount_of_the_expense"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/horizontal_InnerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tripDateInputWrapper"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/selectExpenseDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:hint="@string/expense_time"
+                    tools:ignore="TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/descriptionInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="0dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ExpenseDescription"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:hint="@string/description_optional"
+                tools:ignore="TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

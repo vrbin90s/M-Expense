@@ -45,6 +45,10 @@
     <string name="DTD_RQRiskAssessmentText">Risk assessment text</string>
     <string name="DTD_expensesButtonText">Expenses</string>
     <string name="DTD_detailsButtonText">Details</string>
+    <string name="type_of_expense">Type of Expense</string>
+    <string name="description_optional">Description (optional)</string>
+    <string name="amount_of_the_expense">Amount of the Expense</string>
+    <string name="expense_time">Expense Time</string>
 
     <!--   Spinner (Dropdown) Strings Values in CreateNewTrip Activity     -->
     <string-array name="transportation">
