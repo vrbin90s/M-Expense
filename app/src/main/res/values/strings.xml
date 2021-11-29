@@ -8,7 +8,7 @@
     <string name="calendar_label">Date of the trip</string>
     <string name="requires_risk_assessment_label">Requires risk assessment</string>
     <string name="description_label">Description</string>
-    <string name="transportation_label">Transportation</string>
+    <string name="transportation_label">TransportationIO</string>
     <string name="deposit_amount_label">Deposit Amount</string>
 
     <!--   Data Picker String in CreateNewTrip Activity     -->
