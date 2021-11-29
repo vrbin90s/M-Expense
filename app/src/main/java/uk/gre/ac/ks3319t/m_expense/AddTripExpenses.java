@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import java.time.LocalDate;
 
-public class TripIsOpened extends AppCompatActivity {
+public class AddTripExpenses extends AppCompatActivity {
     public static boolean dateSelected = false;
 
     @Override
@@ -88,7 +88,7 @@ public class TripIsOpened extends AppCompatActivity {
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
             LocalDate td = LocalDate.of(year, ++month, day);
-            ((TripIsOpened)getActivity()).updateTD(td);
+            ((AddTripExpenses)getActivity()).updateTD(td);
 
 
         }
@@ -97,7 +97,7 @@ public class TripIsOpened extends AppCompatActivity {
     }
 
     public void showDatePickerDialog(View view) {
-        DialogFragment newFragment = new TripIsOpened.DatePickerFragment();
+        DialogFragment newFragment = new AddTripExpenses.DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "dataPicker");
     }
 

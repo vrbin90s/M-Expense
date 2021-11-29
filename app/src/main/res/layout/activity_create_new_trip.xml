@@ -98,7 +98,7 @@
                     android:layout_height="fill_parent"
                     android:focusable="false"
                     android:hint="Return Date"
-                    android:onClick="showDatePickerDialogForReturnDate"
+
                     tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
