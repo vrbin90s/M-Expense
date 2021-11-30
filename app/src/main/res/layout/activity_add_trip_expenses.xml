@@ -8,11 +8,11 @@
 
 
     <Button
-        android:id="@+id/NextExpensesButton"
+        android:id="@+id/add_NewExpenseButton"
         android:layout_width="153dp"
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/nextBtn_text"
+        android:text="Add Expense"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.937"
@@ -26,7 +26,7 @@
         android:layout_marginTop="160dp"
         android:layout_marginEnd="10dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/NextExpensesButton"
+        app:layout_constraintBottom_toTopOf="@+id/add_NewExpenseButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -102,5 +102,25 @@
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/expenseToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Expense"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+    </androidx.appcompat.widget.Toolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

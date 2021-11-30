@@ -2,7 +2,6 @@ package uk.gre.ac.ks3319t.m_expense;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,25 +9,18 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         //initializing the trip list
         if (SettingsActivity.recordsDeleted == false){
-            tripDetailsList = db.getCardDetails();
+            tripDetailsList = db.getTripDetails();
 
         } else if (SettingsActivity.recordsDeleted) {
 
@@ -97,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, CreateNewTrip.class));
                 CreateNewTrip.dateSelected = false;
-
             }
         });
 
@@ -163,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             DatabaseHelper db = new DatabaseHelper(this);
 
-            tripDetailsList = db.getCardDetails();
+            tripDetailsList = db.getTripDetails();
 
             setListAdapter(new ArrayAdapter<TripDetails>(this, R.layout.list_items, tripDetailsList));
             ListView lv = getListView();

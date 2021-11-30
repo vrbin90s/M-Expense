@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MExpense">
+
         <activity
             android:name=".DisplayTripDetails"
             android:exported="false"
@@ -25,7 +26,8 @@
             android:exported="false" />
         <activity
             android:name=".AddTripExpenses"
-            android:exported="false" />
+            android:exported="false"
+            android:label=""/>
         <activity
             android:name=".CreateNewTrip"
             android:exported="false" />

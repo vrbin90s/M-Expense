@@ -179,11 +179,11 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> im
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardTitle = itemView.findViewById(R.id.cardTitle);
-            cardDescription = itemView.findViewById(R.id.cardDescription);
-            cardDate = itemView.findViewById(R.id.cardDate);
-            tripCard = itemView.findViewById(R.id.tripCard);
-            optionButton = itemView.findViewById(R.id.options_menu);
+            cardTitle = itemView.findViewById(R.id.TRIP_TitleText);
+            cardDescription = itemView.findViewById(R.id.TRIP_Description);
+            cardDate = itemView.findViewById(R.id.TRIP_DateText);
+            tripCard = itemView.findViewById(R.id.TRIP_CardID);
+            optionButton = itemView.findViewById(R.id.TRIP_OptionsMenu);
 
         }
     }

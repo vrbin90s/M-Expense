@@ -8,27 +8,21 @@
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/drawable/edit_text_background.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2361111111111111" />
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
-        <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/activity_add_trip_expenses.xml" value="0.1" />
+        <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/activity_add_trip_expenses.xml" value="0.33" />
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/activity_create_new_trip.xml" value="0.33" />
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/activity_details.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/activity_display_trip_details.xml" value="0.33" />
+        <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/activity_display_trip_details.xml" value="0.25" />
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/activity_settings.xml" value="0.25" />
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/activity_update_trip_details.xml" value="0.18163672654690619" />
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/card_layout.xml" value="0.25" />
-        <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/custom_view.xml" value="0.5" />
+        <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/custom_expense_view.xml" value="0.398406374501992" />
+        <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/custom_view.xml" value="0.3883495145631068" />
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/list_items.xml" value="0.1082427536231884" />
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/layout/list_layout.xml" value="0.33" />
+        <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/menu/exmpense_menu.xml" value="0.18518518518518517" />
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/menu/menu_card.xml" value="0.27314814814814814" />
         <entry key="..\:/Users/agree/AndroidStudioProjects/MExpense/app/src/main/res/menu/menu_main.xml" value="0.33" />
-        <entry key="..\:/Users/tomas/AndroidStudioProjects/M-Expense/app/src/main/res/layout/activity_add_trip_expenses.xml" value="0.25" />
-        <entry key="..\:/Users/tomas/AndroidStudioProjects/M-Expense/app/src/main/res/layout/activity_create_new_trip.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/tomas/AndroidStudioProjects/M-Expense/app/src/main/res/layout/activity_details.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/tomas/AndroidStudioProjects/M-Expense/app/src/main/res/layout/activity_display_trip_details.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/tomas/AndroidStudioProjects/M-Expense/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/tomas/AndroidStudioProjects/M-Expense/app/src/main/res/layout/activity_settings.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/tomas/AndroidStudioProjects/M-Expense/app/src/main/res/layout/activity_update_trip_details.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/tomas/AndroidStudioProjects/M-Expense/app/src/main/res/layout/custom_view.xml" value="0.20520833333333333" />
       </map>
     </option>
   </component>
@@ -37,5 +31,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>

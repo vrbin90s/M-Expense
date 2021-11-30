@@ -61,15 +61,7 @@ public class CreateNewTrip extends AppCompatActivity {
             }
         });
 
-        // Setting a default date in date input field
-//        EditText defaultInputDate = findViewById(R.id.selectTripDate);
-//
-//        Calendar cal = Calendar.getInstance();
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//        String strDate = sdf.format(cal.getTime());
-//
-//        defaultInputDate.setText(strDate);
-        // Default date end.
+
 
 
 

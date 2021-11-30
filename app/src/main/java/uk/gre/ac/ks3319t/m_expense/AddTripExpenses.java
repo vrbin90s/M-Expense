@@ -4,32 +4,99 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class AddTripExpenses extends AppCompatActivity {
+
     public static boolean dateSelected = false;
+
+    // Boolean to check whether a new expense record has been created
+    public static boolean tripCrated;
+
+
+    // Reference to our expense toolbar
+    Toolbar toolbar;
+    // References to edit text input fields
+    EditText expenseType, expenseAmount, expenseTime, expenseComment;
+    // Reference to add new expense button
+    Button addNewExpenseButton;
+    // Reference to DisplayTripDetails class to get a boolean
+    DisplayTripDetails displayTripDetails;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip_expenses);
 
+        // Calling our expense toolbar
+        toolbar = (Toolbar) findViewById(R.id.expenseToolbar);
+        setSupportActionBar(toolbar);
 
-        Button nextButton = (Button)findViewById(R.id.NextExpensesButton);
+        // Adding back button to our expense toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        DatabaseHelper db = new DatabaseHelper(this);
+
+        //Setting a default date in date input field
+        EditText defaultInputDate = findViewById(R.id.selectExpenseDate);
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String strDate = sdf.format(cal.getTime());
+
+        defaultInputDate.setText(strDate);
+        //Default date end.
+
+
+        // Getting our EditText input fields
+        expenseType = (EditText) findViewById(R.id.TypeOfExpense);
+        expenseAmount = (EditText) findViewById(R.id.AmountOfExpense);
+        expenseTime = (EditText) findViewById(R.id.selectExpenseDate);
+        expenseComment = (EditText) findViewById(R.id.ExpenseDescription);
+
+        // Reference to our add new expense button
+        addNewExpenseButton = (Button)findViewById(R.id.add_NewExpenseButton);
+
+
+        // Reference to data picker DialogFragment
+        DialogFragment dataPicker = new DatePickerFragment();
+
+        expenseTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dataPicker.show(getSupportFragmentManager(),"dataPicker");
+            }
+        });
+
+
+
+
+        addNewExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
 
@@ -55,13 +122,12 @@ public class AddTripExpenses extends AppCompatActivity {
                     expenseNameInputField.setError("Destination details required");
                 }
 
-                if (dateSelected == false) {
-                    failFlag = true;
-                    calendar.setError("Date selection required");
-                }
 
                 if (failFlag == false){
-                    getInputs();
+
+                    saveDetails();
+                    tripCrated = true;
+
                 }
 
             }
@@ -93,7 +159,6 @@ public class AddTripExpenses extends AppCompatActivity {
 
         }
 
-
     }
 
     public void showDatePickerDialog(View view) {
@@ -101,35 +166,15 @@ public class AddTripExpenses extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "dataPicker");
     }
 
+
     public void updateTD(LocalDate td) {
-        TextView tripDate = (TextView) findViewById(R.id.selectTripDate);
-        tripDate.setText(td.toString());
-        tripDate.setError(null);
+        expenseTime.setText(td.toString());
+        expenseTime.setError(null);
         dateSelected = true;
 
     }
 
-    private void getInputs(){
-        EditText expenseInput = (EditText) findViewById(R.id.TypeOfExpense);
-        EditText nameInput = (EditText) findViewById(R.id.AmountOfExpense);
-        TextView tripDateInput = (TextView) findViewById(R.id.selectTripDate);
 
-
-        EditText descriptionInput = (EditText) findViewById(R.id.ExpenseDescription);
-
-
-
-        String strExpenseAmount = expenseInput.getText().toString(),
-                strExpenseName = nameInput.getText().toString(),
-                strTripDate = tripDateInput.getText().toString(),
-
-                strDescription = descriptionInput.getText().toString();
-
-
-        displayAlert(strExpenseAmount, strExpenseName, strTripDate, strDescription);
-
-
-    }
 
     private void displayAlert(
             String strExpenseAmount,
@@ -157,6 +202,38 @@ public class AddTripExpenses extends AppCompatActivity {
                 }).show();
     }
 
+    private void saveDetails() {
 
 
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+
+
+        String expType = expenseType.getText().toString();
+        String expAmount = expenseAmount.getText().toString();
+        String expTime = expenseTime.getText().toString();
+        String expComment = expenseComment.getText().toString();
+
+        long tripID = dbHelper.insertExpenseDetails(expType, expAmount, expTime, expComment);
+
+
+        Toast.makeText(this, "New expense has been created with id: " + tripID,
+                Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, DisplayTripDetails.class);
+        startActivity(intent);
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

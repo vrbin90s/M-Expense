@@ -8,7 +8,7 @@
     android:padding="10dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/tripCard"
+        android:id="@+id/TRIP_CardID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -33,11 +33,11 @@
                 app:srcCompat="@drawable/ic_launcher_background" />
 
             <TextView
-                android:id="@+id/cardTitle"
+                android:id="@+id/TRIP_TitleText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Sample Card Title"
+                android:text="Trip Title"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,31 +46,31 @@
                 app:layout_constraintVertical_bias="0.110000014" />
 
             <TextView
-                android:id="@+id/cardDescription"
+                android:id="@+id/TRIP_Description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Sample Card Description"
+                android:text="Trip Description"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/cardTitle"
+                app:layout_constraintTop_toBottomOf="@+id/TRIP_TitleText"
                 app:layout_constraintVertical_bias="0.16000003" />
 
             <TextView
-                android:id="@+id/cardDate"
+                android:id="@+id/TRIP_DateText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="Trip Date"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/cardDescription"
+                app:layout_constraintEnd_toEndOf="@+id/TRIP_Description"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/cardDescription"
+                app:layout_constraintTop_toBottomOf="@+id/TRIP_Description"
                 app:layout_constraintVertical_bias="0.19" />
 
             <ImageButton
-                android:id="@+id/options_menu"
+                android:id="@+id/TRIP_OptionsMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
