@@ -21,12 +21,17 @@ public class SettingsActivity extends AppCompatActivity {
     Toolbar toolbar;
     // Reference to proceed button
     Button proceedButton;
+    // Calling upload DB button
+
+    // Reference to check box
+    Button uploadButton;
     // Reference to check box
     CheckBox deleteCheckBox;
     // Calling DatabaseHelper Class
     DatabaseHelper dbHelper;
     // Boolean to check whether button was clicked.
     private boolean clicked;
+
 
 
     @Override
@@ -41,6 +46,8 @@ public class SettingsActivity extends AppCompatActivity {
         // Calling proceed button
         proceedButton = (Button) findViewById(R.id.proceedButton);
 
+        uploadButton = (Button) findViewById(R.id.uploadButton);
+
         // Calling delete check box
         deleteCheckBox = (CheckBox) findViewById(R.id.deleteCheckBox);
 
@@ -48,6 +55,13 @@ public class SettingsActivity extends AppCompatActivity {
         // Adding default go back button
         // to the toolbar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingsActivity.this, DatabaseJsonActivity.class));
+            }
+        });
 
 
         proceedButton.setOnClickListener(new View.OnClickListener() {

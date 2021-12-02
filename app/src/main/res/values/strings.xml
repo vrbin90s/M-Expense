@@ -2,6 +2,18 @@
     <string name="app_name">M-Expense</string>
     <string name="floatingActionButtonContentDescription">Description</string>
 
+    <!--   Json for DatabaseJsonActivity     -->
+
+    <string name="url">https://stuiis.cms.gre.ac.uk/COMP1424CoreWS/olympic</string>
+
+    <string name="json">
+        {"userId":"tb6934",
+        "detailList":[
+        {"name":"Android Conference", other fields},
+        {"name":"Client Meeting", other fields}]}
+
+    </string>
+
     <!--  Label Text Strings in CreateNewTrip Activity  -->
     <string name="tripName_label">Trip Name</string>
     <string name="destination_label">Destination</string>

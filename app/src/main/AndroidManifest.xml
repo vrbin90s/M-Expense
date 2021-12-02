@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uk.gre.ac.ks3319t.m_expense">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,15 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MExpense">
-
+        <activity
+            android:name=".DatabaseJsonActivity"
+            android:exported="true" />
         <activity
             android:name=".DisplayTripDetails"
             android:exported="false"
-            android:label=""/>
+            android:label="" />
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
-            android:label=""/>
+            android:label="" />
         <activity
             android:name=".UpdateTripDetails"
             android:exported="false" />
@@ -27,7 +31,7 @@
         <activity
             android:name=".AddTripExpenses"
             android:exported="false"
-            android:label=""/>
+            android:label="" />
         <activity
             android:name=".CreateNewTrip"
             android:exported="false" />
