@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -27,6 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
     Button uploadButton;
     // Reference to check box
     CheckBox deleteCheckBox;
+    CheckBox uploadCheckBox;
     // Calling DatabaseHelper Class
     DatabaseHelper dbHelper;
     // Boolean to check whether button was clicked.
@@ -46,22 +48,14 @@ public class SettingsActivity extends AppCompatActivity {
         // Calling proceed button
         proceedButton = (Button) findViewById(R.id.proceedButton);
 
-        uploadButton = (Button) findViewById(R.id.uploadButton);
-
         // Calling delete check box
         deleteCheckBox = (CheckBox) findViewById(R.id.deleteCheckBox);
+        uploadCheckBox = (CheckBox) findViewById(R.id.JSON_Checkbox);
 
 
         // Adding default go back button
         // to the toolbar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SettingsActivity.this, DatabaseJsonActivity.class));
-            }
-        });
 
 
         proceedButton.setOnClickListener(new View.OnClickListener() {
@@ -70,10 +64,10 @@ public class SettingsActivity extends AppCompatActivity {
                 clicked = true;
 
                 // Check if proceed button have been clicked
-                if (clicked){
-                    // Check if delete items check box have been checked
-                    // if yes - show the confirmation alert window.
-                    if (deleteCheckBox.isChecked()){
+                if (clicked) {
+                    // Check if delete items checkbox is checked
+                    // and that upload checkbox is unchecked.
+                    if (deleteCheckBox.isChecked() && !uploadCheckBox.isChecked()) {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this);
                         alertDialog.setTitle("Delete all trip record");
                         alertDialog.setMessage("Are you sure you want to delete all trip records?");
@@ -101,16 +95,50 @@ public class SettingsActivity extends AppCompatActivity {
                         alertDialog.show();
                     }
                 }
+
+                    if(clicked) {
+                        // Check if upload checkbox is checked
+                        // and that delete all records check box is unchecked.
+                        if (uploadCheckBox.isChecked() && !deleteCheckBox.isChecked()){
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this);
+                            alertDialog.setTitle("Upload expense details");
+                            alertDialog.setMessage("Are you sure you want to upload all expense details to the web based server?");
+
+                            alertDialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+
+                            alertDialog.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    recordsDeleted = true;
+                                    //databaseHelper.DeleteAllRecords();
+
+                                    Intent intent = new Intent(SettingsActivity.this, DatabaseJsonActivity.class);
+                                    startActivity(intent);
+                                    //dialogInterface.cancel();
+
+                                }
+                            });
+                            alertDialog.show();
+
+
+                    }
+
+                        if (clicked && deleteCheckBox.isChecked() && uploadCheckBox.isChecked()){
+                            Toast.makeText(SettingsActivity.this, "Only one checkbox has to be checked at the time",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                }
             }
 
 
 
         });
-
-
-
-
-
 
     }
 

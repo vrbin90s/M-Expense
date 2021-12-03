@@ -175,6 +175,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         List<ExpenseDetails> expenseDetails = new ArrayList<>();
 
+
         Cursor results = database.query(EXPENSE_TABLE_NAME, new String[]{"expense_id", "expense_type", "expense_amount", "expense_time", "expense_comments"},
                 null,null,null,null,null);
 

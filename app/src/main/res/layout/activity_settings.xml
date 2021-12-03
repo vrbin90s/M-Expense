@@ -65,15 +65,11 @@
             android:layout_height="wrap_content"
             android:text="Clear all trip records" />
 
-        <Button
-            android:id="@+id/uploadButton"
-            android:layout_width="294dp"
-            android:layout_height="76dp"
-            android:text="Upload Details to DB"
-            app:layout_constraintBottom_toTopOf="@+id/proceedButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        <CheckBox
+            android:id="@+id/JSON_Checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload expense details to web based server" />
 
     </LinearLayout>
 

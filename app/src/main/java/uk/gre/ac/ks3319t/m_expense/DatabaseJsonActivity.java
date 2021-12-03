@@ -7,6 +7,8 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +22,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -32,6 +36,8 @@ public class DatabaseJsonActivity extends AppCompatActivity {
     private WebView browser;
 
     DatabaseHelper databaseHelper;
+    //Reference to the list to store all the products
+    List<ExpenseDetails> tripDetailsList = new ArrayList<>() ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +45,21 @@ public class DatabaseJsonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_database_json);
 
         browser = (WebView) findViewById(R.id.webkit);
+
+        DatabaseHelper db = new DatabaseHelper(this);
+        tripDetailsList = db.getExpensesDetails();
+        Gson gson = new Gson();
+
+        UserID userID = new UserID("ks3319t", tripDetailsList);
+
+
+
         try {
             URL pageURL = new URL(getString(R.string.url));
             trustAllHosts();
             HttpURLConnection con = (HttpURLConnection)pageURL.openConnection();
 
-            String jsonString = getString(R.string.json); // reference to strings
+            String jsonString = gson.toJson(userID); // reference to strings
             Log.d("Sent JSON:", jsonString);
 
             JsonThread myTask = new JsonThread(this, con, jsonString);
