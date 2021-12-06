@@ -25,7 +25,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     //Reference to the list to store all the products
-    List<TripDetails> tripDetailsList = new ArrayList<>() ;
+    List<TripDetails> tripDetailsList = new ArrayList<>();
 
     //Reference to the recycleView
     RecyclerView recyclerView;
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Reference to the setting Button
     MenuItem settingButton;
-
 
 
     @Override
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //initializing the trip list
-        if (SettingsActivity.recordsDeleted == false){
+        if (SettingsActivity.recordsDeleted == false) {
             tripDetailsList = db.getTripDetails();
 
         } else if (SettingsActivity.recordsDeleted) {
@@ -64,27 +63,25 @@ public class MainActivity extends AppCompatActivity {
             DatabaseHelper newDBHelper = new DatabaseHelper(this);
             newDBHelper.getWritableDatabase();
             SQLiteDatabase sqlDB = newDBHelper.getWritableDatabase();
-            sqlDB.delete("trip_details",null,null);
+            sqlDB.delete("trip_details", null, null);
             //SettingsActivity.recordsDeleted = true;
             sqlDB.close();
         }
 
 
-
-
         // creating recycleView
-        TripAdapter adapter = new TripAdapter(this,tripDetailsList);
+        TripAdapter adapter = new TripAdapter(this, tripDetailsList);
 
         //setting adapter to recycle view
         recyclerView.setAdapter(adapter);
-        System.out.println("Card details: " +tripDetailsList);
+        System.out.println("Card details: " + tripDetailsList);
 
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener(){
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, CreateNewTrip.class));
@@ -93,12 +90,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        TripAdapter newTripAdapter= new TripAdapter(this, tripDetailsList);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        TripAdapter newTripAdapter = new TripAdapter(this, tripDetailsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(newTripAdapter);
         MenuInflater inflater = getMenuInflater();
@@ -134,9 +130,9 @@ public class MainActivity extends AppCompatActivity {
     // interacts with setting button.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.settings_button:
-                Intent startSettingActivity = new Intent(this,SettingsActivity.class);
+                Intent startSettingActivity = new Intent(this, SettingsActivity.class);
                 startActivity(startSettingActivity);
                 return true;
 
@@ -147,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
     public class SearchAdapter extends ListActivity {
 
-        List<TripDetails> tripDetailsList = new ArrayList<>() ;
+        List<TripDetails> tripDetailsList = new ArrayList<>();
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
             lv.setTextFilterEnabled(true);
         }
     }
-
 
 
 }

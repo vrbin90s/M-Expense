@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> implements Filterable{
+public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> implements Filterable {
 
     // Variable for context.
     public Context context;
@@ -36,9 +36,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> im
     public DatabaseHelper databaseHelper;
     // Referencing database.
     SQLiteDatabase db;
-
-
-
 
 
     // Constructor for our variables
@@ -83,7 +80,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> im
                     @Override
                     public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
 
-                        switch (menuItem.getItemId()){
+                        switch (menuItem.getItemId()) {
                             case R.id.update_details:
 
 //                                Toast.makeText(context.getApplicationContext(), "This will update trip details with ID: " + tripDetails.getTripID(),
@@ -116,13 +113,13 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> im
                                 alertDialog.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        db.delete("trip_details","trip_id" + " = " + tripID, null);
-                                        notifyItemRangeChanged(position,tripDetailsList.size());
+                                        db.delete("trip_details", "trip_id" + " = " + tripID, null);
+                                        notifyItemRangeChanged(position, tripDetailsList.size());
                                         tripDetailsList.remove(position);
                                         notifyItemRemoved(position);
                                         db.close();
 
-                                        Toast.makeText(context.getApplicationContext(),  tripDetails.getTitle() + " record was deleted"
+                                        Toast.makeText(context.getApplicationContext(), tripDetails.getTitle() + " record was deleted"
                                                 , Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -235,8 +232,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> im
 
         }
     };
-
-
 
 
 }

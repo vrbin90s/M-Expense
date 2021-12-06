@@ -37,7 +37,7 @@ public class DatabaseJsonActivity extends AppCompatActivity {
 
     DatabaseHelper databaseHelper;
     //Reference to the list to store all the products
-    List<ExpenseDetails> tripDetailsList = new ArrayList<>() ;
+    List<ExpenseDetails> tripDetailsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +53,10 @@ public class DatabaseJsonActivity extends AppCompatActivity {
         UserID userID = new UserID("ks3319t", tripDetailsList);
 
 
-
         try {
             URL pageURL = new URL(getString(R.string.url));
             trustAllHosts();
-            HttpURLConnection con = (HttpURLConnection)pageURL.openConnection();
+            HttpURLConnection con = (HttpURLConnection) pageURL.openConnection();
 
             String jsonString = gson.toJson(userID); // reference to strings
             Log.d("Sent JSON:", jsonString);
@@ -69,7 +68,8 @@ public class DatabaseJsonActivity extends AppCompatActivity {
 
 //            Toast errorToast = Toast.makeText(DatabaseJsonActivity.this, "Error, you are not connected to the University server!", Toast.LENGTH_SHORT);
 //            errorToast.show();
-        } catch (Exception e) { Toast errorToast = Toast.makeText(DatabaseJsonActivity.this, "Error, you are not connected to the University server!", Toast.LENGTH_SHORT);
+        } catch (Exception e) {
+            Toast errorToast = Toast.makeText(DatabaseJsonActivity.this, "Error, you are not connected to the University server!", Toast.LENGTH_SHORT);
             errorToast.show();
         }
     }
@@ -80,9 +80,9 @@ public class DatabaseJsonActivity extends AppCompatActivity {
      */
     private void trustAllHosts() {
         // Create a trust manager that does not validate certificate chains
-        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                return new java.security.cert.X509Certificate[] {};
+                return new java.security.cert.X509Certificate[]{};
             }
 
             public void checkClientTrusted(X509Certificate[] chain,
@@ -92,7 +92,7 @@ public class DatabaseJsonActivity extends AppCompatActivity {
             public void checkServerTrusted(X509Certificate[] chain,
                                            String authType) throws CertificateException {
             }
-        } };
+        }};
 
         // Install the all-trusting trust manager
         try {
@@ -105,22 +105,19 @@ public class DatabaseJsonActivity extends AppCompatActivity {
         }
     }
 
-    class JsonThread implements Runnable
-    {
+    class JsonThread implements Runnable {
         private AppCompatActivity activity;
         private HttpURLConnection con;
         private String jsonPayLoad;
 
-        public JsonThread(AppCompatActivity activity, HttpURLConnection con, String jsonPayload)
-        {
+        public JsonThread(AppCompatActivity activity, HttpURLConnection con, String jsonPayload) {
             this.activity = activity;
             this.con = con;
             this.jsonPayLoad = jsonPayload;
         }
 
         @Override
-        public void run()
-        {
+        public void run() {
 
             String response = "";
             if (prepareConnection()) {
@@ -133,13 +130,11 @@ public class DatabaseJsonActivity extends AppCompatActivity {
 
 
         private void showResult(String response) {
-            activity.runOnUiThread(new Runnable()
-            {
+            activity.runOnUiThread(new Runnable() {
                 @Override
-                public void run()
-                {
+                public void run() {
                     String page = generatePage(response);
-                    ((DatabaseJsonActivity)activity).browser.loadData(page, "text/html", "UTF-8");
+                    ((DatabaseJsonActivity) activity).browser.loadData(page, "text/html", "UTF-8");
                 }
             });
         }
@@ -167,7 +162,7 @@ public class DatabaseJsonActivity extends AppCompatActivity {
 
         private String readStream(InputStream in) {
             StringBuilder sb = new StringBuilder();
-            try(BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
                 String nextLine = "";
                 while ((nextLine = reader.readLine()) != null) {
                     sb.append(nextLine);

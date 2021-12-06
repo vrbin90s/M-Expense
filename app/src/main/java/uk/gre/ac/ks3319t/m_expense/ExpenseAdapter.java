@@ -67,7 +67,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
 
-                        switch (menuItem.getItemId()){
+                        switch (menuItem.getItemId()) {
                             case R.id.delete_expense:
 
                                 // On delete button selected call alert dialogue
@@ -89,7 +89,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
                                 alertDialog.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        db.delete(DatabaseHelper.EXPENSE_TABLE_NAME, "expense_id" + " = " + expID, null );
+                                        db.delete(DatabaseHelper.EXPENSE_TABLE_NAME, "expense_id" + " = " + expID, null);
                                         notifyItemRangeChanged(position, expenseDetailsList.size());
                                         expenseDetailsList.remove(position);
                                         notifyItemRemoved(position);

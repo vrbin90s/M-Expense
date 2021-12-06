@@ -35,7 +35,6 @@ public class SettingsActivity extends AppCompatActivity {
     private boolean clicked;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,46 +95,45 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
 
-                    if(clicked) {
-                        // Check if upload checkbox is checked
-                        // and that delete all records check box is unchecked.
-                        if (uploadCheckBox.isChecked() && !deleteCheckBox.isChecked()){
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this);
-                            alertDialog.setTitle("Upload expense details");
-                            alertDialog.setMessage("Are you sure you want to upload all expense details to the web based server?");
+                if (clicked) {
+                    // Check if upload checkbox is checked
+                    // and that delete all records check box is unchecked.
+                    if (uploadCheckBox.isChecked() && !deleteCheckBox.isChecked()) {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this);
+                        alertDialog.setTitle("Upload expense details");
+                        alertDialog.setMessage("Are you sure you want to upload all expense details to the web based server?");
 
-                            alertDialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.cancel();
-                                }
-                            });
+                        alertDialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
 
-                            alertDialog.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
+                        alertDialog.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                                    recordsDeleted = true;
-                                    //databaseHelper.DeleteAllRecords();
+                                recordsDeleted = true;
+                                //databaseHelper.DeleteAllRecords();
 
-                                    Intent intent = new Intent(SettingsActivity.this, DatabaseJsonActivity.class);
-                                    startActivity(intent);
-                                    //dialogInterface.cancel();
+                                Intent intent = new Intent(SettingsActivity.this, DatabaseJsonActivity.class);
+                                startActivity(intent);
+                                //dialogInterface.cancel();
 
-                                }
-                            });
-                            alertDialog.show();
+                            }
+                        });
+                        alertDialog.show();
 
 
                     }
 
-                        if (clicked && deleteCheckBox.isChecked() && uploadCheckBox.isChecked()){
-                            Toast.makeText(SettingsActivity.this, "Only one checkbox has to be checked at the time",
-                                    Toast.LENGTH_SHORT).show();
-                        }
+                    if (clicked && deleteCheckBox.isChecked() && uploadCheckBox.isChecked()) {
+                        Toast.makeText(SettingsActivity.this, "Only one checkbox has to be checked at the time",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
-
 
 
         });

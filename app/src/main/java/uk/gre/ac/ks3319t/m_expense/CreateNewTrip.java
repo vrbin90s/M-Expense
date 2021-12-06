@@ -48,7 +48,7 @@ public class CreateNewTrip extends AppCompatActivity {
         tripDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                datePicker.show(getSupportFragmentManager(),"datePicker");
+                datePicker.show(getSupportFragmentManager(), "datePicker");
                 tripDateOrReturnDate = true;
             }
         });
@@ -56,24 +56,21 @@ public class CreateNewTrip extends AppCompatActivity {
         returnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                datePicker.show(getSupportFragmentManager(),"datePicker");
+                datePicker.show(getSupportFragmentManager(), "datePicker");
                 tripDateOrReturnDate = false;
             }
         });
-
-
-
 
 
         if (riskAssessmentString.length() == 21) {
             dateSelected = false;
         }
 
-        Button nextButton = (Button)findViewById(R.id.updateButton);
+        Button nextButton = (Button) findViewById(R.id.updateButton);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
 
                 EditText tripInput = (EditText) findViewById(R.id.update_tripNameInputField);
                 String tripName = tripInput.getText().toString();
@@ -95,13 +92,13 @@ public class CreateNewTrip extends AppCompatActivity {
                 boolean failFlag = false;
 
 
-                if (tripName.isEmpty()){
+                if (tripName.isEmpty()) {
                     failFlag = true;
                     tripInput.setError("Trip name is required");
                 } else {
                     failFlag = false;
                 }
-                if (destinationInput.isEmpty()){
+                if (destinationInput.isEmpty()) {
                     failFlag = true;
                     destinationInputField.setError("Destination details required");
                 } else {
@@ -115,7 +112,7 @@ public class CreateNewTrip extends AppCompatActivity {
                     failFlag = false;
                 }
 
-                if (radioGroup.getCheckedRadioButtonId() == -1){
+                if (radioGroup.getCheckedRadioButtonId() == -1) {
                     failFlag = true;
                     riskAssessment.setError("Please select radio button");
 
@@ -123,10 +120,10 @@ public class CreateNewTrip extends AppCompatActivity {
                     failFlag = false;
                 }
 
-                if (failFlag == false){
+                if (failFlag == false) {
 
                 }
-                if(failFlag == false){
+                if (failFlag == false) {
                     getInputs();
                 }
 
@@ -142,46 +139,46 @@ public class CreateNewTrip extends AppCompatActivity {
         TextView riskAssessment = (TextView) findViewById(R.id.update_riskAssessment_label);
 
         // Check which radio button was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.update_radioButton_Yes:
                 if (checked)
                     riskAssessment.setError(null);
-                    break;
+                break;
             case R.id.update_radioButton_No:
                 if (checked) {
                     riskAssessment.setError(null);
                 }
-                    break;
+                break;
         }
     }
 
 
     public static class DatePickerFragment extends DialogFragment implements
-            DatePickerDialog.OnDateSetListener { @NonNull
+            DatePickerDialog.OnDateSetListener {
+        @NonNull
         @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-                LocalDate d = LocalDate.now();
-                int year = d.getYear();
-                int month = d.getMonthValue();
-                int day = d.getDayOfMonth();
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            LocalDate d = LocalDate.now();
+            int year = d.getYear();
+            int month = d.getMonthValue();
+            int day = d.getDayOfMonth();
 
-                return new DatePickerDialog(getActivity(), this, year, --month, day);
+            return new DatePickerDialog(getActivity(), this, year, --month, day);
+        }
+
+        @Override
+        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+            LocalDate date = LocalDate.of(year, ++month, day);
+
+            if (newTripActivity == true) {
+                ((CreateNewTrip) getActivity()).updateTD(date);
+            } else {
+                ((UpdateTripDetails) getActivity()).updateTD(date);
             }
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day)
-            {
-                LocalDate date = LocalDate.of(year, ++month, day);
-
-                if(newTripActivity == true){
-                    ((CreateNewTrip) getActivity()).updateTD(date);
-                } else {
-                    ((UpdateTripDetails)getActivity()).updateTD(date);
-                }
 
 
-            }
+        }
     }
-
 
 
     public void updateTD(LocalDate td) {
@@ -191,7 +188,7 @@ public class CreateNewTrip extends AppCompatActivity {
             tripDate.setText(td.toString());
             tripDate.setError(null);
         }
-        if (tripDateOrReturnDate == false){
+        if (tripDateOrReturnDate == false) {
             EditText returnDate = findViewById(R.id.selectReturnDate);
             returnDate.setText(td.toString());
             returnDate.setError(null);
@@ -200,7 +197,7 @@ public class CreateNewTrip extends AppCompatActivity {
 
     }
 
-    private void getInputs(){
+    private void getInputs() {
         EditText nameTxt = findViewById(R.id.update_tripNameInputField);
         EditText destinationTxt = findViewById(R.id.update_destinationInputField);
         EditText tripDateTxt = findViewById(R.id.selectTripDate);
@@ -217,7 +214,7 @@ public class CreateNewTrip extends AppCompatActivity {
                 strDescription = descriptionTxt.getText().toString(),
                 strTransportation = transportationTxt.getText().toString(),
                 strRiskAssessment = radioButtonTxt.getText().toString();
-        displayAlert(strTripName, strDestination, strTripDate, strReturnDate, strDescription, strTransportation,strRiskAssessment);
+        displayAlert(strTripName, strDestination, strTripDate, strReturnDate, strDescription, strTransportation, strRiskAssessment);
 
 
     }
@@ -230,27 +227,27 @@ public class CreateNewTrip extends AppCompatActivity {
             String strDescription,
             String strTransportation,
             String strRiskAssessment
-            ) {
+    ) {
         new AlertDialog.Builder(this).setTitle("Details entered").setMessage(
                 "Details entered:\n"
-                        +strTripName        +   "\n"
-                        +strDestination     +   "\n"
-                        +strTripDate        +   "\n"
-                        +strReturnDate      +   "\n"
-                        +strDescription     +   "\n"
-                        +strTransportation  +   "\n"
-                        +strRiskAssessment
+                        + strTripName + "\n"
+                        + strDestination + "\n"
+                        + strTripDate + "\n"
+                        + strReturnDate + "\n"
+                        + strDescription + "\n"
+                        + strTransportation + "\n"
+                        + strRiskAssessment
         )
                 .setNeutralButton("Back",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface goBack, int i) {
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface goBack, int i) {
 
-            }
-        })
+                            }
+                        })
                 .setPositiveButton("Save Details", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-            // Here will be the logic to save data into the database
+                        // Here will be the logic to save data into the database
                         saveDetails();
                     }
                 }).show();
@@ -278,8 +275,7 @@ public class CreateNewTrip extends AppCompatActivity {
         String riskAssessment = radioButtonTxt.getText().toString();
 
 
-
-        long tripID = dbHelper.insertDetails(name, destination, tripDate, returnDate,description,transportation,riskAssessment);
+        long tripID = dbHelper.insertDetails(name, destination, tripDate, returnDate, description, transportation, riskAssessment);
 
         Toast.makeText(this, "New trip has been created with id: " + tripID,
                 Toast.LENGTH_LONG).show();
@@ -287,7 +283,6 @@ public class CreateNewTrip extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
 
 
 }

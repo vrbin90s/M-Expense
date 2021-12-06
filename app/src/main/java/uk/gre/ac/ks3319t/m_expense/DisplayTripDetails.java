@@ -39,27 +39,14 @@ public class DisplayTripDetails extends AppCompatActivity {
     // Creating variable for our SQLiteDatabase
     SQLiteDatabase db;
     // Reference to our buttons
-    Button detailsButton;
     Button expensesButton;
 
     TripDetails tripDetails;
 
-    FloatingActionButton fabAddNewExpense;
     //References to our layouts
     public LinearLayout tripDetailsLayout;
+    public static long expense_trip_id;
 
-    // Reference to the list that stores all expense details
-    List<ExpenseDetails> expenseDetailsList = new ArrayList<>();
-
-    // References to edit text input fields
-    EditText expenseType, expenseAmount, expenseTime, expenseComment;
-
-
-    // Reference to our recyclerview
-    public static RecyclerView recyclerView;
-
-    // Boolean to determine whether user interacted with expenses button
-    private boolean expensesSelected = false;
 
     @SuppressLint("Range")
     @Override
@@ -67,45 +54,14 @@ public class DisplayTripDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_trip_details);
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-
-        // Getting RecyclerView
-        recyclerView = (RecyclerView) findViewById(R.id.EXP_RecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Populating expenses list
-        expenseDetailsList = databaseHelper.getExpensesDetails();
-
-
-        // Creating RecyclerView
-        ExpenseAdapter adapter = new ExpenseAdapter(this, expenseDetailsList);
-        // Setting adapter to recyclerview
-        recyclerView.setAdapter(adapter);
-
-
         dbHelper = new DatabaseHelper(this);
         db = dbHelper.getWritableDatabase();
 
         // Getting our buttons
-        detailsButton = (Button) findViewById(R.id.DTD_DetailsButton);
         expensesButton = (Button) findViewById(R.id.DTD_ExpensesButton);
-        fabAddNewExpense = (FloatingActionButton) findViewById(R.id.addExpenseButton);
 
         // Getting our Layouts
         tripDetailsLayout = (LinearLayout) findViewById(R.id.TripDetails_Layout);
-
-        // Hide expense button by default
-        // - it will be set to visible only once user interacts
-        // with the expense button.
-        if(AddTripExpenses.tripCrated == false) {
-            fabAddNewExpense.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.GONE);
-        }
-        if(AddTripExpenses.tripCrated == true) {
-            tripDetailsLayout.setVisibility(View.GONE);
-            fabAddNewExpense.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.VISIBLE);
-        }
 
 
         // Calling custom toolbar
@@ -127,14 +83,15 @@ public class DisplayTripDetails extends AppCompatActivity {
 
         // Passing selected item ID
         final int rowID = getIntent().getIntExtra("tripID", -1);
+        expense_trip_id = rowID;
 
         // Our cursor calls trip details based on the selected item ID
-        Cursor cursor = db.query("trip_details",null, "trip_id" + " = " + rowID, null,null,null,null);
+        Cursor cursor = db.query("trip_details", null, "trip_id" + " = " + rowID, null, null, null, null);
         tripDetailsList = new ArrayList<TripDetails>();
         tripDetailsList.clear();
 
         // Binds TextView default values with values from the database.
-        if(cursor != null && cursor.getCount() != 0) {
+        if (cursor != null && cursor.getCount() != 0) {
             while (cursor.moveToNext()) {
                 tripName.setText(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRIP_NAME_COLUMN)));
                 destination.setText(cursor.getString(cursor.getColumnIndex(DatabaseHelper.TRIP_DESTINATION_COLUMN)));
@@ -148,32 +105,12 @@ public class DisplayTripDetails extends AppCompatActivity {
 
         }
 
-        detailsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tripDetailsLayout.setVisibility(View.VISIBLE);
-                fabAddNewExpense.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.GONE);
-
-            }
-        });
-
         expensesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                tripDetailsLayout.setVisibility(View.GONE);
-                fabAddNewExpense.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.VISIBLE);
-
-
-            }
-        });
-
-        fabAddNewExpense.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(DisplayTripDetails.this, AddTripExpenses.class));
+                Intent intent = new Intent(DisplayTripDetails.this, DisplayExpenseDetails.class);
+                intent.putExtra("tripID", rowID);
+                startActivity(intent);
             }
         });
 
@@ -188,13 +125,13 @@ public class DisplayTripDetails extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                startActivity(new Intent(DisplayTripDetails.this, MainActivity.class));
                 finish();
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
 }

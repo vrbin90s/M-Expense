@@ -3,9 +3,8 @@ package uk.gre.ac.ks3319t.m_expense;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.motion.widget.Debug;
 import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -20,13 +19,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class AddTripExpenses extends AppCompatActivity {
 
@@ -44,8 +42,7 @@ public class AddTripExpenses extends AppCompatActivity {
     Button addNewExpenseButton;
     // Reference to DisplayTripDetails class to get a boolean
     DisplayTripDetails displayTripDetails;
-
-
+    TripDetails tripDetails;
 
 
     @Override
@@ -80,7 +77,7 @@ public class AddTripExpenses extends AppCompatActivity {
         expenseComment = (EditText) findViewById(R.id.ExpenseDescription);
 
         // Reference to our add new expense button
-        addNewExpenseButton = (Button)findViewById(R.id.add_NewExpenseButton);
+        addNewExpenseButton = (Button) findViewById(R.id.add_NewExpenseButton);
 
 
         // Reference to data picker DialogFragment
@@ -89,16 +86,16 @@ public class AddTripExpenses extends AppCompatActivity {
         expenseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dataPicker.show(getSupportFragmentManager(),"dataPicker");
+                dataPicker.show(getSupportFragmentManager(), "dataPicker");
             }
         });
 
 
-
+        final long rowID = getIntent().getIntExtra("tripID", -1);
 
         addNewExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
 
                 EditText expenseAmountInput = (EditText) findViewById(R.id.AmountOfExpense);
                 String expenseInput = expenseAmountInput.getText().toString();
@@ -109,23 +106,22 @@ public class AddTripExpenses extends AppCompatActivity {
                 TextView calendar = (TextView) findViewById(R.id.selectExpenseDate);
 
 
-
                 boolean failFlag = false;
 
 
-                if (expenseInput.isEmpty()){
+                if (expenseInput.isEmpty()) {
                     failFlag = true;
                     expenseAmountInput.setError("Trip name is required");
                 }
-                if (NameInput.isEmpty()){
+                if (NameInput.isEmpty()) {
                     failFlag = true;
                     expenseNameInputField.setError("Destination details required");
                 }
 
 
-                if (failFlag == false){
+                if (failFlag == false) {
 
-                    saveDetails();
+                    saveDetails(rowID);
                     tripCrated = true;
 
                 }
@@ -135,26 +131,27 @@ public class AddTripExpenses extends AppCompatActivity {
     }
 
     public static class DatePickerFragment extends DialogFragment implements
-            DatePickerDialog.OnDateSetListener {    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            DatePickerDialog.OnDateSetListener {
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
 
-        LocalDate d = LocalDate.now();
-        int year = d.getYear();
-        int month = d.getMonthValue();
-        int day = d.getDayOfMonth();
+            LocalDate d = LocalDate.now();
+            int year = d.getYear();
+            int month = d.getMonthValue();
+            int day = d.getDayOfMonth();
 
 
+            return new DatePickerDialog(getActivity(), this, year, --month, day);
 
-        return new DatePickerDialog(getActivity(), this, year, --month, day);
+        }
 
-    }
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
             LocalDate td = LocalDate.of(year, ++month, day);
-            ((AddTripExpenses)getActivity()).updateTD(td);
+            ((AddTripExpenses) getActivity()).updateTD(td);
 
 
         }
@@ -175,7 +172,6 @@ public class AddTripExpenses extends AppCompatActivity {
     }
 
 
-
     private void displayAlert(
             String strExpenseAmount,
             String strExpenseName,
@@ -183,10 +179,10 @@ public class AddTripExpenses extends AppCompatActivity {
             String strDescription) {
         new AlertDialog.Builder(this).setTitle("Details entered").setMessage(
                 "Details entered:\n"
-                        +strExpenseAmount +"\n"
-                        +strExpenseName+"\n"
-                        +strTripDate + "\n"
-                        +strDescription + "\n"
+                        + strExpenseAmount + "\n"
+                        + strExpenseName + "\n"
+                        + strTripDate + "\n"
+                        + strDescription + "\n"
         )
                 .setNeutralButton("Back",
                         new DialogInterface.OnClickListener() {
@@ -202,7 +198,8 @@ public class AddTripExpenses extends AppCompatActivity {
                 }).show();
     }
 
-    private void saveDetails() {
+
+    public void saveDetails(long id) {
 
 
         DatabaseHelper dbHelper = new DatabaseHelper(this);
@@ -212,14 +209,17 @@ public class AddTripExpenses extends AppCompatActivity {
         String expAmount = expenseAmount.getText().toString();
         String expTime = expenseTime.getText().toString();
         String expComment = expenseComment.getText().toString();
+        long expense_trip_id = DisplayTripDetails.expense_trip_id;
 
-        long tripID = dbHelper.insertExpenseDetails(expType, expAmount, expTime, expComment);
+
+        long tripID = dbHelper.insertExpenseDetails(expType, expAmount, expTime, expComment, expense_trip_id);
 
 
         Toast.makeText(this, "New expense has been created with id: " + tripID,
                 Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(this, DisplayTripDetails.class);
+        Intent intent = new Intent(AddTripExpenses.this, DisplayExpenseDetails.class);
+        intent.putExtra("tripID", expense_trip_id);
         startActivity(intent);
 
     }
@@ -230,6 +230,8 @@ public class AddTripExpenses extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
+                Intent intent = new Intent(AddTripExpenses.this, MainActivity.class);
+                startActivity(intent);
                 finish();
                 return true;
         }

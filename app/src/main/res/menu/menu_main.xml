@@ -9,10 +9,6 @@
         app:showAsAction="ifRoom"
         app:actionViewClass="android.widget.SearchView" />
     <item
-        android:icon="@drawable/ic_baseline_sort_24"
-        android:title=""
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/settings_button"
         android:title="Settings" />
 

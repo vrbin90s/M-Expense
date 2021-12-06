@@ -12,8 +12,10 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    // Variable storing database name
     private static final String DATABASE_NAME = "MExpense_DB";
 
+    // Variables storing table names
     public static final String TRIP_TABLE_NAME = "trip_details";
     public static final String EXPENSE_TABLE_NAME = "expense_details";
 
@@ -33,10 +35,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String EXPENSE_AMOUNT_COLUMN = "expense_amount";
     public static final String EXPENSE_TIME_COLUMN = "expense_time";
     public static final String EXPENSE_COMMENTS_COLUMN = "expense_comments";
+    public static final String EXPENSE_TRIP_ID_COLUMN = "expense_trip_id";
 
+    // Reference to SQLiteDatabase
     private SQLiteDatabase database;
-    private ArrayList<TripDetails> tripDetailsList = new ArrayList<TripDetails>();
 
+    // Reference to trip details data list
+    private ArrayList<TripDetails> tripDetailsList = new ArrayList<TripDetails>();
 
 
     // Create table for trip details
@@ -61,9 +66,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             REQUIRES_RISK_ASSESSMENT_COLUMN);
 
     // Create table for expense details
-    private  static final String CREATE_EXPENSE_TABLE = String.format(
+    private static final String CREATE_EXPENSE_TABLE = String.format(
             "CREATE TABLE %s (" +
                     "   %s INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "   %s TEXT, " +
                     "   %s TEXT, " +
                     "   %s TEXT, " +
                     "   %s TEXT, " +
@@ -73,7 +79,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             EXPENSE_TYPE_COLUMN,
             EXPENSE_AMOUNT_COLUMN,
             EXPENSE_TIME_COLUMN,
-            EXPENSE_COMMENTS_COLUMN);
+            EXPENSE_COMMENTS_COLUMN,
+            EXPENSE_TRIP_ID_COLUMN);
 
 
     public DatabaseHelper(Context context) {
@@ -100,6 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // Inserting data into trip table
     public long insertDetails(String name, String destination, String tripDate, String returnDate, String description, String transportation, String riskAssessment) {
         ContentValues rowValues = new ContentValues();
 
@@ -114,37 +122,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return database.insertOrThrow(TRIP_TABLE_NAME, null, rowValues);
     }
 
-    public long insertExpenseDetails(String exp_type, String exp_amount, String exp_time, String exp_description){
+    // Inserting data into expense table
+    public long insertExpenseDetails(String exp_type, String exp_amount, String exp_time, String exp_description, long exp_trip_id) {
         ContentValues rowValues = new ContentValues();
 
         rowValues.put(EXPENSE_TYPE_COLUMN, exp_type);
         rowValues.put(EXPENSE_AMOUNT_COLUMN, exp_amount);
         rowValues.put(EXPENSE_TIME_COLUMN, exp_time);
         rowValues.put(EXPENSE_COMMENTS_COLUMN, exp_description);
+        rowValues.put(EXPENSE_TRIP_ID_COLUMN, exp_trip_id);
 
         return database.insertOrThrow(EXPENSE_TABLE_NAME, null, rowValues);
-    }
-
-    public String getExpenseDetails() {
-        Cursor results = database.query(EXPENSE_TABLE_NAME, new String[]{"expense_id", "expense_type", "expense_amount", "expense_time", "expense_comments"},
-                null,null,null,null,"name");
-
-        String resultText = "";
-
-        results.moveToFirst();
-        while(!results.isAfterLast()) {
-            int id = results.getInt(0);
-            String expenseType = results.getString(1);
-            String expenseAmount = results.getString(2);
-            String expenseTime = results.getString(3);
-            String expenseDescription = results.getString(4);
-
-            resultText += id + " " + expenseType + " " + expenseAmount + " " + expenseTime + " " + expenseDescription + "\n";
-
-            results.moveToNext();
-
-        }
-        return resultText;
     }
 
 
@@ -153,7 +141,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         List<TripDetails> tripDetails = new ArrayList<>();
 
-        Cursor results = database.query("trip_details", new String[] {"trip_id", "name", "destination","description", "trip_date", "return_date", "risk_assessment" },
+        Cursor results = database.query("trip_details", new String[]{"trip_id", "name", "destination", "description", "trip_date", "return_date", "risk_assessment"},
                 null, null, null, null, "name");
 
 
@@ -163,7 +151,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String description = results.getString(3);
             String date = results.getString(4);
 
-            TripDetails data = new TripDetails(id,title,description,date);
+            TripDetails data = new TripDetails(id, title, description, date);
             tripDetails.add(data);
         }
         return tripDetails;
@@ -171,13 +159,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Retrieving data from expense_details table to populate expense cards
-    public  List<ExpenseDetails> getExpensesDetails() {
+    public List<ExpenseDetails> getExpensesDetails() {
 
         List<ExpenseDetails> expenseDetails = new ArrayList<>();
 
 
-        Cursor results = database.query(EXPENSE_TABLE_NAME, new String[]{"expense_id", "expense_type", "expense_amount", "expense_time", "expense_comments"},
-                null,null,null,null,null);
+        Cursor results = database.query(EXPENSE_TABLE_NAME, new String[]{"expense_id", "expense_type", "expense_amount", "expense_time", "expense_comments", "expense_trip_id"},
+                "expense_trip_id" + " = " + DisplayTripDetails.expense_trip_id, null, null, null, null);
 
         while (results.moveToNext()) {
             int id = results.getInt(0);
@@ -185,43 +173,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String expAmount = results.getString(2);
             String expTime = results.getString(3);
             String expComment = results.getString(4);
+            long exp_trip_id = results.getInt(5);
 
-            ExpenseDetails data = new ExpenseDetails(id,expName,expAmount,expTime,expComment);
+            ExpenseDetails data = new ExpenseDetails(id, expName, expAmount, expTime, expComment, exp_trip_id);
             expenseDetails.add(data);
         }
         return expenseDetails;
 
     }
-
-
-
-
-    public String getDetails() {
-        Cursor results = database.query("trip_details", new String[] {"trip_id", "name", "destination", "trip_date", "return_date", "description", "transportation", "risk_assessment" },
-                null, null, null, null, "name");
-
-        String resultText = "";
-
-        results.moveToFirst();
-        while (!results.isAfterLast()) {
-            int id = results.getInt(0);
-            String name = results.getString(1);
-            String destination = results.getString(2);
-            String tripDate = results.getString(3);
-            String returnDate = results.getString(4);
-            String description = results.getString(5);
-            String transportation = results.getString(6);
-            String riskAssessment = results.getString(7);
-
-            resultText += id + " " + name + " " + destination + " " + tripDate + " " + returnDate + " " + description + " " + transportation + " " +riskAssessment + "\n";
-
-            results.moveToNext();
-        }
-
-        return resultText;
-
-    }
-
-
 
 }

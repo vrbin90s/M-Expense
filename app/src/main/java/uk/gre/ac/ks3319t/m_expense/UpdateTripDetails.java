@@ -43,8 +43,6 @@ public class UpdateTripDetails extends AppCompatActivity {
     SQLiteDatabase db;
 
 
-
-
     @SuppressLint("Range")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +76,7 @@ public class UpdateTripDetails extends AppCompatActivity {
         dataPickerTripDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                datePicker.show(getSupportFragmentManager(),"datePicker");
+                datePicker.show(getSupportFragmentManager(), "datePicker");
                 tripDateOrReturnDate = true;
             }
         });
@@ -86,7 +84,7 @@ public class UpdateTripDetails extends AppCompatActivity {
         dataPickerReturnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                datePicker.show(getSupportFragmentManager(),"datePicker");
+                datePicker.show(getSupportFragmentManager(), "datePicker");
                 tripDateOrReturnDate = false;
             }
         });
@@ -94,11 +92,11 @@ public class UpdateTripDetails extends AppCompatActivity {
 
         final int rowID = getIntent().getIntExtra("tripID", -1);
 
-        Cursor c1 = db.query("trip_details",null, "trip_id" + " = " + rowID, null,null,null,null);
+        Cursor c1 = db.query("trip_details", null, "trip_id" + " = " + rowID, null, null, null, null);
         tripDetailsList = new ArrayList<TripDetails>();
         tripDetailsList.clear();
 
-        if(c1 != null && c1.getCount() != 0) {
+        if (c1 != null && c1.getCount() != 0) {
             while (c1.moveToNext()) {
                 upTripName.setText(c1.getString(c1.getColumnIndex(DatabaseHelper.TRIP_NAME_COLUMN)));
                 upDestination.setText(c1.getString(c1.getColumnIndex(DatabaseHelper.TRIP_DESTINATION_COLUMN)));
@@ -108,7 +106,7 @@ public class UpdateTripDetails extends AppCompatActivity {
                 upTransportation.setText(c1.getString(c1.getColumnIndex(DatabaseHelper.TRIP_TRANSPORTATION_COLUMN)));
                 String radioButtonValue = c1.getString(c1.getColumnIndex(DatabaseHelper.REQUIRES_RISK_ASSESSMENT_COLUMN));
 
-                if (radioButtonValue.length() == 3){
+                if (radioButtonValue.length() == 3) {
                     radioButtonYes.setChecked(true);
                 } else {
                     radioButtonNo.setChecked(true);
@@ -157,7 +155,6 @@ public class UpdateTripDetails extends AppCompatActivity {
         });
 
 
-
     }
 
     //
@@ -169,7 +166,7 @@ public class UpdateTripDetails extends AppCompatActivity {
         TextView riskAssessment = (TextView) findViewById(R.id.update_riskAssessment_label);
 
         // Check which radio button was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.update_radioButton_Yes:
                 if (checked)
                     riskAssessment.setError(null);
@@ -191,7 +188,7 @@ public class UpdateTripDetails extends AppCompatActivity {
             tripDate.setText(td.toString());
             tripDate.setError(null);
         }
-        if (tripDateOrReturnDate == false){
+        if (tripDateOrReturnDate == false) {
             EditText returnDate = findViewById(R.id.selectReturnDate);
             returnDate.setText(td.toString());
             returnDate.setError(null);

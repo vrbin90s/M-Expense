@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MExpense">
         <activity
+            android:name=".DisplayExpenseDetails"
+            android:exported="false"
+            android:label=""/>
+        <activity
             android:name=".DatabaseJsonActivity"
             android:exported="true" />
         <activity
@@ -24,9 +28,6 @@
             android:label="" />
         <activity
             android:name=".UpdateTripDetails"
-            android:exported="false" />
-        <activity
-            android:name=".DetailsActivity"
             android:exported="false" />
         <activity
             android:name=".AddTripExpenses"
