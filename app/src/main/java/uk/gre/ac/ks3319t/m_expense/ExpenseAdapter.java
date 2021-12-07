@@ -23,6 +23,11 @@ import java.util.List;
 
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
 
+    /**
+     * This class is based on the code example provided at https://androidtuts4u.blogspot.com/2018/06/android-cardview-and-sqlite-example.html
+     * Android CardView And SQLite example
+     */
+
     // Variable for context
     public Context context;
     // Variable that stores expense detail list

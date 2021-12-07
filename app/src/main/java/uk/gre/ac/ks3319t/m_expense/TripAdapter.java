@@ -26,6 +26,12 @@ import java.util.List;
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> implements Filterable {
 
+
+    /**
+     * This class is based on the code example provided at https://androidtuts4u.blogspot.com/2018/06/android-cardview-and-sqlite-example.html
+     * Android CardView And SQLite example
+     */
+
     // Variable for context.
     public Context context;
     // Variable that store trip details list
@@ -71,6 +77,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> im
             @Override
             public void onClick(View view) {
 
+                /**
+                 * This method is based on the code example provided at https://stackoverflow.com/questions/60914612/how-to-access-a-popup-menu-on-cardview
+                 * How to access a popup menu on CardView
+                 */
                 final int tripID = tripDetails.getTripID();
                 databaseHelper = new DatabaseHelper(context);
                 db = databaseHelper.getWritableDatabase();
