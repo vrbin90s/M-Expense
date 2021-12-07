@@ -159,6 +159,18 @@
                 android:text="@string/radioBtn_No_txt"
                 tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
+            <TextView
+                android:id="@+id/textLatLong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/textAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
+
         </RadioGroup>
     </LinearLayout>
 
@@ -172,5 +184,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/sample_img"
         tools:ignore="ImageContrastCheck" />
+
+    <Button
+        android:id="@+id/buttonGetCurrentLocation"
+
+        android:layout_width="153dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:text="Log Location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
