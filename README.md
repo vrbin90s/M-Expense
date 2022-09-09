@@ -72,6 +72,27 @@ Additionaly app shoul:
 
 ---
 
+# Instruction / Install
+
+1. Clone the repository
+2. Import project foler in your Android Studio Development Environment
+3. Use API 30 or above to run the emulator.
+
+---
+
+# Screenshots
+
+![image](https://user-images.githubusercontent.com/72602872/189371564-dd7b4f02-a684-4a91-a813-f8a3c0f51ec9.png)
+![image](https://user-images.githubusercontent.com/72602872/189371698-7ed63a2a-a072-40c9-b6cd-70d88fb50071.png)
+![image](https://user-images.githubusercontent.com/72602872/189371806-35d9d4c9-efe2-449a-b003-2e37e3616654.png)
+![image](https://user-images.githubusercontent.com/72602872/189371906-77805254-bcb5-464e-99d3-b012bcb0b8ad.png)
+![image](https://user-images.githubusercontent.com/72602872/189371973-6b480049-4da4-44b4-aa81-a5157e98ef1b.png)
+![image](https://user-images.githubusercontent.com/72602872/189372183-a1b9737c-71b7-49ca-9276-4a307c6f1c7d.png)
+![image](https://user-images.githubusercontent.com/72602872/189372256-2045871f-0519-4be0-a18d-07f40d8658bc.png)
+![image](https://user-images.githubusercontent.com/72602872/189372356-4c88a174-c89a-4d77-883d-8a69eccb831d.png)
+
+
+
 
 
 
